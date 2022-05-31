@@ -1,19 +1,35 @@
-% teach V1.6
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{teach}[2019/08/14]
+\ProvidesPackage{cours}
 \RequirePackage{titlesec}
 \RequirePackage{graphicx}
 \RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[french]{babel}
 \RequirePackage[table,svgnames]{xcolor}
+\RequirePackage{theme}
+\RequirePackage{amsmath,amssymb}
 \RequirePackage{tcolorbox}
 \RequirePackage{ifthen}
 \RequirePackage{hyperref}
+\hypersetup{
+	colorlinks=True,
+	urlcolor=\colorlink,
+	linkcolor=\colorlink,
+	citecolor=\colorlink
+           }
+\RequirePackage{framed}
+\RequirePackage[sectionbib]{bibunits}
+\RequirePackage{natbib}
+\RequirePackage[squaren,Gray,cdot]{SIunits}
 \RequirePackage{fleqn}
 \RequirePackage[a4paper,hmargin=2.5cm,vmargin=2cm]{geometry}
 \RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
 		labelfont=bf]{caption}
-\RequirePackage{theme}
 \RequirePackage{minitoc}
+\RequirePackage{palatino}
+\RequirePackage{natbib}
+\RequirePackage{pxfonts}
+\RequirePackage{enumitem}
 
 % --------------------------------------
 % Options
@@ -38,14 +54,6 @@
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
 \tcbset{skin=enhanced, breakable=true}
-
-% ---------------------------------------------
-% New length
-% ---------------------------------------------
-\newlength\arrayvertrulewidth
-\setlength{\arrayvertrulewidth}{2pt}
-\newlength\arrayhspace
-\setlength{\arrayhspace}{5pt}
 
 % -------------------------------------------------------
 % Chapter, Section, ...
