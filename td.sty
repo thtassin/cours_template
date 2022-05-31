@@ -1,0 +1,43 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{td}
+\RequirePackage{titlesec}
+\RequirePackage{graphicx}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[french]{babel}
+\RequirePackage[table,svgnames]{xcolor}
+\RequirePackage{theme}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{hyperref}
+\hypersetup{
+	colorlinks=True,
+	urlcolor=\colorlink,
+	linkcolor=\colorlink,
+	citecolor=\colorlink
+           }
+\RequirePackage{framed}
+\RequirePackage[squaren,Gray,cdot]{SIunits}
+\RequirePackage{fleqn}
+\RequirePackage[a4paper,hmargin=2.5cm,vmargin=2cm]{geometry}
+\RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
+		labelfont=bf]{caption}
+\RequirePackage{palatino}
+\RequirePackage{pxfonts}
+\RequirePackage{enumitem}
+
+\newcommand{\Entete}[1]{
+\hrule
+\begin{flushleft}
+\huge\bfseries Travaux dirigés : #1 \\[3mm]
+\end{flushleft}
+\hrule
+}
+
+% Section
+\renewcommand{\thesection}{Exercice~\arabic{section} :}
+\titleformat{\section}[block] 
+{\Large \selectfont \bfseries \color{\sectioncolor}}
+{\thesection}
+{12pt}
+{}
+
