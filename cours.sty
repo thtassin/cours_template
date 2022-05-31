@@ -1,18 +1,14 @@
 % teach V1.6
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{teach}[2019/08/14]
-\RequirePackage{xargs} % ajout du 2019/08/14
 \RequirePackage{titlesec}
 \RequirePackage{graphicx}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[table,svgnames]{xcolor}
 \RequirePackage{tcolorbox}
-\RequirePackage{cellspace}
-    \setlength{\cellspacebottomlimit}{4pt}
 \RequirePackage{ifthen}
-\RequirePackage{multido}
-\RequirePackage{tabularx}
 \RequirePackage{hyperref}
+\RequirePackage{fleqn}
 \RequirePackage[a4paper,hmargin=2.5cm,vmargin=2cm]{geometry}
 \RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
 		labelfont=bf]{caption}
@@ -30,9 +26,9 @@
 % --------------------------------------------
 % Divers commandes
 % --------------------------------------------
-\renewcommand{\emph}[1]{\textcolor{\teach@emph@color}{\textbf{#1}}}
+\renewcommand{\emph}[1]{\textcolor{\emphcolor}{\textbf{#1}}}
 \renewcommand{\mtctitle}{Plan du chapitre} 
-\newcommand{\blank}[1]{\textcolor{\teach@emph@color}{\textbf{#1}}}
+\newcommand{\blank}[1]{\textcolor{\emphcolor}{\textbf{#1}}}
 \if@student
 \renewcommand{\blank}[1]{\quad \textcolor{white}{#1} \quad}
 \fi
@@ -74,18 +70,20 @@
     {\Huge}
 
 % Section
-\renewcommand{\thesection}{\Roman{section}.}
-\renewcommand\section{\@startsection {section}{1}{\z@}%
-     {-2.0ex \@plus -1ex \@minus -.2ex}%  before skip
-     {1.3ex \@plus.2ex}% after skip
-     {\color{\teach@section@title@txtcolor}\normalfont\Large\bfseries}}
+\renewcommand{\thesection}{\Roman{section}}
+\titleformat{\section}[block] 
+{\LARGE \selectfont \bfseries \color{\sectioncolor}}
+{\thesection.}
+{12pt}
+{}
 
 % Subsection
-\renewcommand{\thesubsection}{\arabic{subsection}.}
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-{-2.25ex\@plus -1ex \@minus -.2ex}% 
-{1.0ex \@plus .2ex}%
-{\normalfont\large\bfseries}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\titleformat{\subsection}[hang] 
+{\Large \selectfont \bfseries}
+{\thesubsection.}
+{12pt}
+{}
 
 % Subsubsection
 \setcounter{secnumdepth}{4}
@@ -102,7 +100,8 @@
 \def\group{}
 \def\title{}
 \RequirePackage{fancyhdr}
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\nouppercase{\bfseries\leftmark}}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries\leftmark}}}
 \rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
 \fancyfoot{}
 \fancyfoot[LE,RO]{\itshape\group}
@@ -112,26 +111,14 @@
 % -----------------------------------
 % Environnements
 % -----------------------------------
-\def\teach@title@rem{Remarque}
-\def\teach@title@rems{Remarques}
-\def\teach@title@memento{À retenir}
-\def\teach@title@attention{Attention}
-\def\redefinetitle#1#2{\expandafter\renewcommand\csname teach@title@#1\endcsname{#2}}
-
-% Boîtes
-\newsavebox{\teach@box}
-
-% Macro pour les titres
-
-\newcommand{\teach@title}{}
 
 % Définition
 \newenvironment{defn}[1][]
 {
-\begin{tcolorbox}[arc=1ex, colback=\teach@defn@bg@textcolor, 
-       colframe=\teach@defn@bg@textcolor, left=3pt,
-       right=3pt, top=3pt, bottom=3pt, title=#1, fonttitle=\bfseries,
-       coltitle=black, before=\vspace{1em}, after=\vspace{1em}]
+\begin{tcolorbox}[arc=1ex, colback=\defnbgcolor, 
+       colframe=\defnbgcolor, left=3pt,
+       right=3pt, top=1pt, bottom=1pt, title=#1, fonttitle=\bfseries,
+       coltitle=black, before=\vspace{0.5em}, after=\vspace{0.5em}]
 }
 {
 \end{tcolorbox}
@@ -143,9 +130,9 @@
 {
 \refstepcounter{count@exemple}
 \begin{tcolorbox}[arc=1ex, colback=black!10, colframe=black!10, left=0.5cm,
-       right=3pt, top=3pt, bottom=3pt, fonttitle=\bfseries, 
+       right=3pt, top=1pt, bottom=1pt, fonttitle=\bfseries, 
        title = Exemple : , coltitle=black, lefttitle=0cm, colbacktitle=black!10,
-       before=\vspace{1em}, after=\vspace{1em}]
+       before=\vspace{0.5em}, after=\vspace{0.5em}]
 }
 {
 \end{tcolorbox}
@@ -156,9 +143,9 @@
 {
 \refstepcounter{count@exemple}
 \begin{tcolorbox}[arc=1ex, colback=black!10, colframe=black!10, left=0.5cm,
-       right=3pt, top=3pt, bottom=10cm, fonttitle=\bfseries, 
+       right=3pt, top=1pt, bottom=10cm, fonttitle=\bfseries, 
        title = Exemple : , coltitle=black, lefttitle=0cm, colbacktitle=black!10,
-       before=\vspace{1em}, after=\vspace{1em}, invisible, titlebox=visible]
+       before=\vspace{0.5em}, after=\vspace{0.5em}, invisible, titlebox=visible]
 }
 {
 \end{tcolorbox}
@@ -169,51 +156,27 @@
 \newenvironment{rema}
 {
 \begin{tcolorbox}[colback=white, colframe=white,
-       right=3pt, top=1pt, bottom=3pt, 
-       before=\vspace{1em}, after=\vspace{1em}]
+       right=3pt, top=1pt, bottom=1pt, 
+       before=\vspace{0.5em}, after=\vspace{0.5em}]
 \textbf{Remarque : }
 }
 {
 \end{tcolorbox}
 }
 
-% Memento % modification au 2019/08/14
-
-\newenvironment{memento}
-{
-\begin{lrbox}{\teach@box}
-\begin{minipage}{\dimexpr\linewidth-3\tabcolsep-0.2pt}
-\color{\teach@thm@body@txtcolor}
-}
-{
-\end{minipage}
-\end{lrbox}
-\vspace{1em}
-\begin{tabular}{@{}p{2mm}@{\color{\teach@memento@title@txtcolor}\hspace*{1mm}\vrule width \arrayvertrulewidth\hspace*{\arrayhspace}}Sl@{}}
-    \multicolumn{2}{@{}l}{\raisebox{-2mm}{\includegraphics[decodearray={\colortmppicto}]{LOGO/memento.pdf}}~\raisebox{1mm}{\fontfamily{lmss}\bfseries\selectfont\textcolor{\teach@memento@title@txtcolor}{\teach@title}}}\\[-2pt]
- & \usebox{\teach@box}
-\end{tabular}
-\vspace{1em}
-}
 
 % Attention % modification au 2019/08/14
 
 \newenvironment{attention}
-{%
-\begin{lrbox}{\teach@box}
-\begin{minipage}{\dimexpr\linewidth-3\tabcolsep-0.2pt}
-\color{\teach@attention@title@txtcolor}
+{
+\begin{tcolorbox}[colback=white, colframe=white,
+       right=3pt, top=1pt, bottom=0pt, colbacktitle=\attentioncolor,
+       before=\vspace{0.5em}, after=\vspace{0.5em},
+       attach boxed title to top left={xshift=-5mm, yshift=-1mm},
+       title=Attention~!, fonttitle=\bfseries]
 }
 {
-\end{minipage}
-\end{lrbox}
-\vspace{1em}
-\begin{tabular}{@{}p{2.8mm}@{\color{\teach@attention@title@txtcolor}\hspace*{1mm}\vrule width \arrayvertrulewidth\hspace*{\arrayhspace}}Sl@{}}
-\multicolumn{2}{@{}l}{\raisebox{-2mm}{\includegraphics[decodearray={\colortmppicto}]{LOGO/attention_img.pdf}}~\raisebox{1mm}{\fontfamily{lmss}\bfseries\selectfont\textcolor{\teach@attention@title@txtcolor}{\teach@title}}}\\
-& \\[-10pt]
- & \usebox{\teach@box}
-\end{tabular}
-\vspace{1em}
+\end{tcolorbox}
 }
 
 
