@@ -118,7 +118,7 @@
 \begin{tcolorbox}[arc=1ex, colback=\defnbgcolor, 
        colframe=\defnbgcolor, left=3pt,
        right=3pt, top=1pt, bottom=1pt, title=#1, fonttitle=\bfseries,
-       coltitle=black, before=\vspace{0.5em}, after=\vspace{0.5em}]
+       coltitle=black, before=\beforespace, after=\afterspace]
 }
 {
 \end{tcolorbox}
@@ -132,7 +132,7 @@
 \begin{tcolorbox}[arc=1ex, colback=black!10, colframe=black!10, left=0.5cm,
        right=3pt, top=1pt, bottom=1pt, fonttitle=\bfseries, 
        title = Exemple : , coltitle=black, lefttitle=0cm, colbacktitle=black!10,
-       before=\vspace{0.5em}, after=\vspace{0.5em}]
+       before=\beforespace, after=\afterspace]
 }
 {
 \end{tcolorbox}
@@ -145,7 +145,7 @@
 \begin{tcolorbox}[arc=1ex, colback=black!10, colframe=black!10, left=0.5cm,
        right=3pt, top=1pt, bottom=10cm, fonttitle=\bfseries, 
        title = Exemple : , coltitle=black, lefttitle=0cm, colbacktitle=black!10,
-       before=\vspace{0.5em}, after=\vspace{0.5em}, invisible, titlebox=visible]
+       before=\beforespace, after=\afterspace, invisible, titlebox=visible]
 }
 {
 \end{tcolorbox}
@@ -157,7 +157,7 @@
 {
 \begin{tcolorbox}[colback=white, colframe=white,
        right=3pt, top=1pt, bottom=1pt, 
-       before=\vspace{0.5em}, after=\vspace{0.5em}]
+       before=\beforespace, after=\afterspace]
 \textbf{Remarque : }
 }
 {
@@ -165,13 +165,12 @@
 }
 
 
-% Attention % modification au 2019/08/14
-
+% Attention 
 \newenvironment{attention}
 {
 \begin{tcolorbox}[colback=white, colframe=white,
        right=3pt, top=1pt, bottom=0pt, colbacktitle=\attentioncolor,
-       before=\vspace{0.5em}, after=\vspace{0.5em},
+       before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=-5mm, yshift=-1mm},
        title=Attention~!, fonttitle=\bfseries]
 }
@@ -179,4 +178,16 @@
 \end{tcolorbox}
 }
 
+% Objectifs 
+\newenvironment{objectif}
+{
+\begin{tcolorbox}[colback=white, colframe=\objectifcolor,
+       right=3pt, top=1cm, bottom=0.5cm, colbacktitle=\objectifcolor,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top center={yshift=-5mm},
+       title=Objectifs, fonttitle=\bfseries\Large]
+}
+{
+\end{tcolorbox}
+}
 
