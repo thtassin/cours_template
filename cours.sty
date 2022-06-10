@@ -216,22 +216,36 @@
 \hrule
 }
 
-\newcommand{\bex}{
-\renewcommand{\thesection}{Exercice~\arabic{section}}
-\titleformat{name=\section, numberless}[block] 
-{\Large \selectfont \bfseries}
-{\thesection : }
-{12pt}
-{\stepcounter{section}}
+\newcounter{exercice}
+\newcommand{\begex}{
 \addcontentsline{toc}{section}{Exercices}
-\setcounter{section}{1}
 }
 
-\newcommand{\fex}{
-\renewcommand{\thesection}{\Roman{section}}
-\titleformat{\section}[block] 
-{\LARGE \selectfont \bfseries \color{\sectioncolor}}
-{\thesection.}
+\titleclass{\exercice}{straight}[\chapter]
+\titleformat{\exercice}[block] 
+{\Large \selectfont \bfseries}
+{\theexercice : }
 {12pt}
 {}
-}
+\titlespacing*{\exercice}{0pt}{3.5ex plus 1ex minus .2ex}{2.3 ex plus .2ex}
+\renewcommand{\theexercice}{Exercice~\arabic{exercice}}
+
+%\newcommand{\bex}{
+%\renewcommand{\thesection}{Exercice~\arabic{section}}
+%\titleformat{name=\section, numberless}[block] 
+%{\Large \selectfont \bfseries}
+%{\thesection : }
+%{12pt}
+%{\stepcounter{section}}
+%\addcontentsline{toc}{section}{Exercices}
+%\setcounter{section}{1}
+%}
+%
+%\newcommand{\fex}{
+%\renewcommand{\thesection}{\Roman{section}}
+%\titleformat{\section}[block] 
+%{\LARGE \selectfont \bfseries \color{\sectioncolor}}
+%{\thesection.}
+%{12pt}
+%{}
+%}
