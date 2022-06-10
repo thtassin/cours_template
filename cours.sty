@@ -48,6 +48,11 @@
 \if@student
 \renewcommand{\blank}[1]{\quad \textcolor{white}{#1} \quad}
 \fi
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[1]{\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}%
+  #1
+  \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}%
+}
 % --------------------------------------------
 % tccolorbox
 % --------------------------------------------
@@ -199,3 +204,34 @@
 \end{tcolorbox}
 }
 
+% --------------------------------
+% Exercice
+% --------------------------------
+\newcommand{\Entete}[1]{
+\clearpage
+\hrule
+\begin{flushleft}
+\huge\bfseries Travaux dirigés : #1 \\[3mm]
+\end{flushleft}
+\hrule
+}
+
+\newcommand{\bex}{
+\renewcommand{\thesection}{Exercice~\arabic{section}}
+\titleformat{name=\section, numberless}[block] 
+{\Large \selectfont \bfseries}
+{\thesection : }
+{12pt}
+{\stepcounter{section}}
+\addcontentsline{toc}{section}{Exercices}
+\setcounter{section}{1}
+}
+
+\newcommand{\fex}{
+\renewcommand{\thesection}{\Roman{section}}
+\titleformat{\section}[block] 
+{\LARGE \selectfont \bfseries \color{\sectioncolor}}
+{\thesection.}
+{12pt}
+{}
+}
