@@ -192,6 +192,13 @@
 }
 
 % Objectifs 
+\newlist{objlist}{itemize}{1}
+\setlist[objlist,1]{%
+             labelsep=*,
+             label=$\square$,
+             leftmargin=16pt,
+             labelindent=0pt}
+
 \newenvironment{objectif}
 {
 \begin{tcolorbox}[colback=white, colframe=\objectifcolor,
@@ -199,8 +206,10 @@
        before=\beforespace, after=\afterspace,
        attach boxed title to top center={yshift=-5mm},
        title=Objectifs, fonttitle=\bfseries\Large]
+\begin{objlist}
 }
 {
+\end{objlist}
 \end{tcolorbox}
 }
 
@@ -230,22 +239,4 @@
 \titlespacing*{\exercice}{0pt}{3.5ex plus 1ex minus .2ex}{2.3 ex plus .2ex}
 \renewcommand{\theexercice}{Exercice~\arabic{exercice}}
 
-%\newcommand{\bex}{
-%\renewcommand{\thesection}{Exercice~\arabic{section}}
-%\titleformat{name=\section, numberless}[block] 
-%{\Large \selectfont \bfseries}
-%{\thesection : }
-%{12pt}
-%{\stepcounter{section}}
-%\addcontentsline{toc}{section}{Exercices}
-%\setcounter{section}{1}
-%}
-%
-%\newcommand{\fex}{
-%\renewcommand{\thesection}{\Roman{section}}
-%\titleformat{\section}[block] 
-%{\LARGE \selectfont \bfseries \color{\sectioncolor}}
-%{\thesection.}
-%{12pt}
-%{}
-%}
+
