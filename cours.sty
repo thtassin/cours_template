@@ -48,17 +48,24 @@
 \if@student
 \renewcommand{\blank}[1]{\quad \textcolor{white}{#1} \quad}
 \fi
-\newcommand{\nocontentsline}[3]{}
-\newcommand{\tocless}[1]{\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}%
-  #1
-  \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}%
-}
+
 % --------------------------------------------
 % tccolorbox
 % --------------------------------------------
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
 \tcbset{skin=enhanced, breakable=true}
+
+\def\author{}
+\def\group{}
+\def\title{}
+\RequirePackage{fancyhdr}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries\leftmark}}}
+\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\itshape\group}
+\pagestyle{fancyplain}
 
 % -------------------------------------------------------
 % Chapter, Section, ...
@@ -106,19 +113,6 @@
      {0.75ex \@plus .2ex}%
      {\normalfont\normalsize\bfseries}}
 
-% ------------------------
-% Fancyhead
-% ------------------------
-\def\author{}
-\def\group{}
-\def\title{}
-\RequirePackage{fancyhdr}
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
-{\nouppercase{\bfseries\leftmark}}}
-\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
-\fancyfoot{}
-\fancyfoot[LE,RO]{\itshape\group}
-\pagestyle{fancyplain}
 
 
 % -----------------------------------
@@ -216,18 +210,28 @@
 % --------------------------------
 % Exercice
 % --------------------------------
-\newcommand{\Entete}[1]{
-\clearpage
-\hrule
-\begin{flushleft}
-\huge\bfseries Travaux dirigés : #1 \\[3mm]
-\end{flushleft}
-\hrule
-}
 
 \newcounter{exercice}
-\newcommand{\begex}{
+\newenvironment{td}[1]
+{
+\clearpage
+\lhead[\fancyplain{}{\bfseries\thepage}]
+{\fancyplain{}{\nouppercase{\bfseries Travaux dirigés}}}
+\rhead[\fancyplain{}{\nouppercase{#1}}]{\fancyplain{}{\bfseries\thepage}}
+\pagestyle{fancyplain}
+\begin{center}
+\LARGE\bfseries Travaux dirigés : #1 \\[3mm]
+\end{center}
 \addcontentsline{toc}{section}{Exercices}
+}
+{
+\clearpage
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries\leftmark}}}
+\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\itshape\group}
+\pagestyle{fancyplain}
 }
 
 \titleclass{\exercice}{straight}[\chapter]
@@ -239,4 +243,11 @@
 \titlespacing*{\exercice}{0pt}{3.5ex plus 1ex minus .2ex}{2.3 ex plus .2ex}
 \renewcommand{\theexercice}{Exercice~\arabic{exercice}}
 
+\newlist{exlist}{enumerate}{1}
+\setlist[exlist,1]{%
+             labelsep=*,
+             label=\arabic*.,
+             leftmargin=16pt,
+             labelindent=\parindent,
+     	     itemindent=\parindent}
 
