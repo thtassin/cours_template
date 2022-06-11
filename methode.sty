@@ -1,0 +1,33 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{methode}
+\RequirePackage{cours}
+
+\def\title{}
+\def\leftmark{Fiche méthode}
+\def\rightmark{\title}
+% ------------------------------
+% fancyhdr
+% -----------------------------
+\RequirePackage{fancyhdr}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries\leftmark}}}
+\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\itshape\group}
+\pagestyle{fancyplain}
+
+% ------------------------------
+% Entete
+% ------------------------------
+\newcommand{\Entete}{
+\hrule
+\vspace{0.3cm}
+\begin{flushleft}
+\huge\bfseries \title \\[3mm]
+\end{flushleft}
+\vspace{0.3cm}
+\hrule
+\vspace{1cm}
+}
+
+
