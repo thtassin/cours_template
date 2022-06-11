@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{cours}
-\RequirePackage{titlesec}
+\RequirePackage{titlesec, titletoc}
 \RequirePackage{graphicx}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
@@ -48,6 +48,7 @@
 \if@student
 \renewcommand{\blank}[1]{\quad \textcolor{white}{#1} \quad}
 \fi
+\setcounter{tocdepth}{2}
 
 % --------------------------------------------
 % tccolorbox
@@ -210,7 +211,6 @@
 % --------------------------------
 % Exercice
 % --------------------------------
-
 \newcounter{exercice}
 \newenvironment{td}[1]
 {
@@ -226,7 +226,7 @@
 \clearpage
 }
 
-\titleclass{\exercice}{straight}[\chapter]
+\titleclass{\exercice}{straight}[\subsection]
 \titleformat{\exercice}[block] 
 {\Large \selectfont \bfseries}
 {\theexercice : }
@@ -234,6 +234,7 @@
 {}
 \titlespacing*{\exercice}{0pt}{3.5ex plus 1ex minus .2ex}{2.3 ex plus .2ex}
 \renewcommand{\theexercice}{Exercice~\arabic{exercice}}
+\dottedcontents{exercice}[]{}{}{}
 
 \newlist{exlist}{enumerate}{1}
 \setlist[exlist,1]{%
@@ -242,4 +243,40 @@
              leftmargin=16pt,
              labelindent=\parindent,
      	     itemindent=\parindent}
+
+% --------------------------------
+% Correction
+% --------------------------------
+\newcounter{correction}
+\newenvironment{corr}[1]
+{
+\clearpage
+\def\leftmark{Correction}
+\def\rightmark{#1}
+\begin{center}
+\LARGE\bfseries Correction : #1 \\[3mm]
+\end{center}
+\addcontentsline{toc}{section}{Correction}
+}
+{
+\clearpage
+}
+
+\titleclass{\correction}{straight}[\subsection]
+\titleformat{\correction}[block] 
+{\Large \selectfont \bfseries}
+{\thecorrection : }
+{12pt}
+{}
+\titlespacing*{\correction}{0pt}{3.5ex plus 1ex minus .2ex}{2.3 ex plus .2ex}
+\renewcommand{\thecorrection}{Exercice~\arabic{exercice}}
+\dottedcontents{correction}[]{}{}{}
+
+\newlist{corrlist}{enumerate}{1}
+\setlist[corrlist,1]{%
+             labelsep=*,
+             label=\arabic*.,
+             leftmargin=16pt,
+             labelindent=0pt,
+     	     itemindent=0pt}
 
