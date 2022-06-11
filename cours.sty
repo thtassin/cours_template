@@ -11,6 +11,7 @@
 \RequirePackage{tcolorbox}
 \RequirePackage{ifthen}
 \RequirePackage{hyperref}
+\RequirePackage{comment}
 \hypersetup{
 	colorlinks=True,
 	urlcolor=\colorlink,
@@ -261,7 +262,6 @@
 {
 \clearpage
 }
-
 \titleclass{\correction}{straight}[\subsection]
 \titleformat{\correction}[block] 
 {\Large \selectfont \bfseries}
@@ -279,4 +279,6 @@
              leftmargin=16pt,
              labelindent=0pt,
      	     itemindent=0pt}
-
+\if@student
+\excludecomment{corr}
+\fi
