@@ -244,13 +244,19 @@
 \renewcommand{\theexercice}{Exercice~\arabic{exercice}}
 \dottedcontents{exercice}[]{}{}{}
 
-\newlist{exlist}{enumerate}{1}
+\newlist{exlist}{enumerate}{2}
 \setlist[exlist,1]{%
              labelsep=*,
              label=\arabic*.,
              leftmargin=16pt,
-             labelindent=\parindent,
-     	     itemindent=\parindent}
+             labelindent=0pt}
+
+\setlist[exlist,2]{%
+             labelsep=12pt,
+	     label=\alph*.,
+             leftmargin=16pt,
+             labelindent=-4pt
+     	     }
 
 % --------------------------------
 % Correction
@@ -278,13 +284,19 @@
 \renewcommand{\thecorrection}{Exercice~\arabic{correction}}
 \dottedcontents{correction}[]{}{}{}
 
-\newlist{corrlist}{enumerate}{1}
+\newlist{corrlist}{enumerate}{2}
 \setlist[corrlist,1]{%
              labelsep=*,
              label=\arabic*.,
              leftmargin=16pt,
              labelindent=0pt,
      	     itemindent=0pt}
+
+\setlist[corrlist,2]{%
+             labelsep=*,
+	     label=\alph*.,
+             leftmargin=16pt,
+     	     labelindent=-4pt}
 \if@student
 \excludecomment{corr}
 \fi
