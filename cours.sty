@@ -215,10 +215,8 @@
 \newenvironment{td}[1]
 {
 \clearpage
-\lhead[\fancyplain{}{\bfseries\thepage}]
-{\fancyplain{}{\nouppercase{\bfseries Travaux dirigés}}}
-\rhead[\fancyplain{}{\nouppercase{#1}}]{\fancyplain{}{\bfseries\thepage}}
-\pagestyle{fancyplain}
+\def\leftmark{Travaux dirigés}
+\def\rightmark{#1}
 \begin{center}
 \LARGE\bfseries Travaux dirigés : #1 \\[3mm]
 \end{center}
@@ -226,12 +224,6 @@
 }
 {
 \clearpage
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
-{\nouppercase{\bfseries\leftmark}}}
-\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
-\fancyfoot{}
-\fancyfoot[LE,RO]{\itshape\group}
-\pagestyle{fancyplain}
 }
 
 \titleclass{\exercice}{straight}[\chapter]
