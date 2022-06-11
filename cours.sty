@@ -49,7 +49,13 @@
 \if@student
 \renewcommand{\blank}[1]{\quad \textcolor{white}{#1} \quad}
 \fi
+
+% -------------------------------------------
+% Correction
+% -------------------------------------------
 \setcounter{tocdepth}{2}
+\newcounter{exercice}
+\newcounter{correction}
 
 % --------------------------------------------
 % tccolorbox
@@ -82,6 +88,8 @@
     {\Huge}
     [\vspace{1cm}
     \minitoc
+    \setcounter{exercice}{0}
+    \setcounter{correction}{0}
     ]
 
  \titleformat{name=\chapter,numberless}[display] 
@@ -212,7 +220,6 @@
 % --------------------------------
 % Exercice
 % --------------------------------
-\newcounter{exercice}
 \newenvironment{td}[1]
 {
 \clearpage
@@ -248,7 +255,6 @@
 % --------------------------------
 % Correction
 % --------------------------------
-\newcounter{correction}
 \newenvironment{corr}[1]
 {
 \clearpage
@@ -282,3 +288,6 @@
 \if@student
 \excludecomment{corr}
 \fi
+
+
+
