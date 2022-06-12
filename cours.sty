@@ -46,7 +46,7 @@
 % --------------------------------------------
 \renewcommand{\emph}[1]{\textcolor{\emphcolor}{\textbf{#1}}}
 \renewcommand{\mtctitle}{Plan du chapitre} 
-
+\graphicspath{image/}
 % -------------------------------------
 % Gap
 % -------------------------------------
@@ -55,7 +55,7 @@
 \if@student
 \TeacherModeOff
 \fi
-\newcommand{\blank}[1]{\quad \gap*{#1} \quad}
+\newcommand{\blank}[1]{\gap*{#1}}
 % -------------------------------------------
 % Correction
 % -------------------------------------------
@@ -136,7 +136,7 @@
 % -----------------------------------
 
 % Définition
-\newenvironment{defn}[1][]
+\newenvironment{defn}[1]
 {
 \begin{tcolorbox}[arc=1ex, colback=\defnbgcolor, 
        colframe=\defnbgcolor, left=3pt,
