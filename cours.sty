@@ -12,6 +12,7 @@
 \RequirePackage{ifthen}
 \RequirePackage{hyperref}
 \RequirePackage{comment}
+\RequirePackage{dashundergaps}
 \hypersetup{
 	colorlinks=True,
 	urlcolor=\colorlink,
@@ -45,11 +46,16 @@
 % --------------------------------------------
 \renewcommand{\emph}[1]{\textcolor{\emphcolor}{\textbf{#1}}}
 \renewcommand{\mtctitle}{Plan du chapitre} 
-\newcommand{\blank}[1]{\textcolor{\emphcolor}{\textbf{#1}}}
-\if@student
-\renewcommand{\blank}[1]{\quad \textcolor{white}{#1} \quad}
-\fi
 
+% -------------------------------------
+% Gap
+% -------------------------------------
+\dashundergapssetup{gap-format=blank}
+\TeacherModeOn
+\if@student
+\TeacherModeOff
+\fi
+\newcommand{\blank}[1]{\quad \gap*{#1} \quad}
 % -------------------------------------------
 % Correction
 % -------------------------------------------
