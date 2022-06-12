@@ -1,8 +1,8 @@
-exemple/*.log
-exemple/*.mtc*
-exemple/*.out
-exemple/*.aux
-exemple/*.maf
-exemple/*.toc
-exemple/*.fls
-exemple/*.fdb_latexmk
+exemples/*.log
+exemples/*.mtc*
+exemples/*.out
+exemples/*.aux
+exemples/*.maf
+exemples/*.toc
+exemples/*.fls
+exemples/*.fdb_latexmk
