@@ -308,4 +308,35 @@
 \fi
 
 
+% --------------------------------
+% devoir
+% --------------------------------
+\newcounter{pastyear}
+\setcounter{pastyear}{\the\year}
+\addtocounter{pastyear}{-1}
+\def\type{}
+\def\lieu{}
+\def\title{}
+\newcommand{\devoir}[3]
+{%1 Titre %2 Data %3 Durée
+	\thispagestyle{plain}
+\begin{minipage}[t]{0.3\linewidth}
+	Année \thepastyear--\the\year \\
+	\lieu \\
+\end{minipage}
+\hrule
+\begin{center}
+	{\large \type} \\[5mm]
+{\huge\bfseries #1} \\[5mm]
+#2 -- #3 
+\end{center}
 
+\hrule 
+\vspace{1cm}
+
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries#1}}}
+\rhead[\fancyplain{}{\nouppercase{\type}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\itshape\type}
+}
