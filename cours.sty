@@ -33,6 +33,7 @@
 \RequirePackage{pxfonts}
 \RequirePackage{enumitem}
 
+
 % --------------------------------------
 % Options
 % -------------------------------------
@@ -47,6 +48,7 @@
 \renewcommand{\emph}[1]{\textcolor{\emphcolor}{\textbf{#1}}}
 \renewcommand{\mtctitle}{Plan du chapitre} 
 \graphicspath{image/}
+\renewcommand{\FrenchLabelItem}{\textbullet}
 % -------------------------------------
 % Gap
 % -------------------------------------
@@ -309,7 +311,7 @@
 
 
 % --------------------------------
-% devoir
+% Devoir
 % --------------------------------
 \newcounter{pastyear}
 \setcounter{pastyear}{\the\year}
@@ -317,6 +319,7 @@
 \def\type{}
 \def\lieu{}
 \def\title{}
+\def\classe{}
 \newcommand{\devoir}[3]
 {%1 Titre %2 Data %3 Durée
 	\thispagestyle{plain}
@@ -324,6 +327,13 @@
 	Année \thepastyear--\the\year \\
 	\lieu \\
 \end{minipage}
+\hfill
+\begin{minipage}[t]{0.1\linewidth}
+\begin{flushleft}
+	{\bfseries \classe} \\
+\end{flushleft}
+\end{minipage}
+
 \hrule
 \begin{center}
 	{\large \type} \\[5mm]
@@ -338,5 +348,38 @@
 {\nouppercase{\bfseries#1}}}
 \rhead[\fancyplain{}{\nouppercase{\type}}]{\fancyplain{}{\bfseries\thepage}}
 \fancyfoot{}
-\fancyfoot[LE,RO]{\itshape\type}
 }
+
+% --------------------------------
+% Travaux Pratiques
+% --------------------------------
+\newcommand{\TP}[1]
+{%1 Titre
+	\thispagestyle{plain}
+\begin{minipage}[t]{0.3\linewidth}
+	Année \thepastyear--\the\year \\
+	\lieu \\
+	Travaux pratiques 
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.1\linewidth}
+\begin{flushleft}
+	{\bfseries \classe} \\
+\end{flushleft}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{flushleft}
+{\huge\bfseries Travaux pratiques : #1}
+\end{flushleft}
+
+%\vspace{0.5cm}
+
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries#1}}}
+\rhead[\fancyplain{}{\nouppercase{Travaux pratiques}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
+}
+
+
