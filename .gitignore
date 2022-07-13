@@ -1,8 +1,9 @@
-exemples/*.log
-exemples/*.mtc*
-exemples/*.out
-exemples/*.aux
-exemples/*.maf
-exemples/*.toc
-exemples/*.fls
-exemples/*.fdb_latexmk
+*.log
+*.mtc*
+*.out
+*.aux
+*.maf
+*.toc
+*.fls
+*.fdb_latexmk
+*.gz
