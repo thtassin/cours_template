@@ -46,18 +46,25 @@
 % Divers commandes
 % --------------------------------------------
 \renewcommand{\emph}[1]{\textcolor{\emphcolor}{\textbf{#1}}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO : #1]}}
 \renewcommand{\mtctitle}{Plan du chapitre} 
 \graphicspath{image/}
 \renewcommand{\FrenchLabelItem}{\textbullet}
+\setlength{\parindent}{0pt}
 % -------------------------------------
 % Gap
 % -------------------------------------
 \dashundergapssetup{gap-format=blank}
 \TeacherModeOn
+\newcommand{\blank}[1]{\gap*{#1}}
+\newcommand{\eqnblank}[1]{#1}
+\newcommand{\white}[1]{#1}
 \if@student
 \TeacherModeOff
+\renewcommand{\eqnblank}[1]{}
+\renewcommand{\white}[1]{\textcolor{white}{#1}}
 \fi
-\newcommand{\blank}[1]{\gap*{#1}}
+
 % -------------------------------------------
 % Correction
 % -------------------------------------------
@@ -70,7 +77,7 @@
 % --------------------------------------------
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
-\tcbset{skin=enhanced, breakable=true}
+\tcbset{skin=enhanced, breakable=true, parbox=false}
 
 \def\author{}
 \def\group{}
@@ -180,13 +187,9 @@
 %Remarques
 \newenvironment{rema}
 {
-\begin{tcolorbox}[colback=white, colframe=white,
-       right=3pt, top=1pt, bottom=1pt, 
-       before=\beforespace, after=\afterspace]
 \textbf{Remarque : }
 }
 {
-\end{tcolorbox}
 }
 
 
