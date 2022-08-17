@@ -70,10 +70,7 @@ L'option `student` permet de supprimer les corrections, de faire disparaître le
 est activée. Une commande `\blank{mot}` rend possible cette dernière fonctionnalité.
 
 ## Modèle général pour une fiche méthode
-`methode.py` permet de générer rapidement un document indépendant du reste du cours. Pour l'utiliser, il suffit d'ajouter `\usepackage{methode}` dans le préambule général du fichier. Les environnements de `cours.sty` sont disponibles dans cette mise en page. Le fichier fournit une fonction supplémentaire `Entete` qui permet de générer le titre de la fiche méthode.
+`methode.sty` permet de générer rapidement un document indépendant du reste du cours. Pour l'utiliser, il suffit d'ajouter `\usepackage{methode}` dans le préambule général du fichier. Les environnements de `cours.sty` sont disponibles dans cette mise en page. Le fichier fournit une fonction supplémentaire `Entete` qui permet de générer le titre de la fiche méthode.
 ```latex
 \Entete{titre}
 ```
-
-## License
-
