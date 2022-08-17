@@ -12,7 +12,6 @@
 \RequirePackage{ifthen}
 \RequirePackage{hyperref}
 \RequirePackage{comment}
-\RequirePackage{dashundergaps}
 \hypersetup{
 	colorlinks=True,
 	urlcolor=\colorlink,
@@ -51,18 +50,13 @@
 \graphicspath{image/}
 \renewcommand{\FrenchLabelItem}{\textbullet}
 \setlength{\parindent}{0pt}
+
 % -------------------------------------
-% Gap
+% Blank
 % -------------------------------------
-\dashundergapssetup{gap-format=blank}
-\TeacherModeOn
-\newcommand{\blank}[1]{\gap*{#1}}
-\newcommand{\eqnblank}[1]{#1}
-\newcommand{\white}[1]{#1}
+\newcommand{\blank}[1]{#1}
 \if@student
-\TeacherModeOff
-\renewcommand{\eqnblank}[1]{}
-\renewcommand{\white}[1]{\textcolor{white}{#1}}
+\renewcommand{\blank}[1]{\phantom{#1}}
 \fi
 
 % -------------------------------------------
