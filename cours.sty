@@ -60,10 +60,17 @@
 \fi
 
 % -------------------------------------------
+\newcommand{\version}[2]{#1}
+\if@student
+	\renewcommand{\version}[2]{#2}
+\fi
+
+% -------------------------------------------
 % Correction
 % -------------------------------------------
 \setcounter{tocdepth}{2}
 \newcounter{exercice}
+\newcounter{tpsec}
 \newcounter{correction}
 
 % --------------------------------------------
@@ -245,7 +252,7 @@
 {\theexercice : }
 {12pt}
 {}
-\titlespacing*{\exercice}{0pt}{3.5ex plus 1ex minus .2ex}{2.3 ex plus .2ex}
+\titlespacing*{\exercice}{0pt}{1.5ex plus 1ex minus .2ex}{0.5 ex plus .2ex}
 \renewcommand{\theexercice}{Exercice~\arabic{exercice}}
 \dottedcontents{exercice}[]{}{}{}
 
@@ -379,4 +386,12 @@
 \fancyfoot{}
 }
 
+\titleclass{\tpsec}{straight}[\subsection]
+\titleformat{\tpsec}[block] 
+{\Large \selectfont \bfseries}
+{\thetpsec.~}
+{12pt}
+{}
+\titlespacing*{\tpsec}{0pt}{1.5ex plus 1ex minus .2ex}{0.5 ex plus .2ex}
+\renewcommand{\thetpsec}{\arabic{tpsec}}
 
