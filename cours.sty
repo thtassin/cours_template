@@ -1,8 +1,8 @@
-coucou
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{cours}
 \RequirePackage{titlesec, titletoc}
 \RequirePackage{graphicx}
+\RequirePackage{fontawesome5}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[french]{babel}
@@ -14,28 +14,32 @@ coucou
 \RequirePackage{hyperref}
 \RequirePackage{comment}
 \RequirePackage{pdfcol}
-\hypersetup{
-	colorlinks=True,
-	urlcolor=\colorlink,
-	linkcolor=\colorlink,
-	citecolor=\colorlink
-           }
 \RequirePackage{framed}
-\RequirePackage[sectionbib]{bibunits}
-\RequirePackage{natbib}
 \RequirePackage[squaren,Gray,cdot, load=addn]{SIunits}
 \RequirePackage{fleqn}
-\RequirePackage[a4paper,hmargin=2cm,vmargin=1.5cm]{geometry}
+\RequirePackage[a4paper,hmargin=0.5cm,vmargin=1.5cm, landscape, twocolumn]{geometry}
 \RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
 		labelfont=bf]{caption}
-\RequirePackage{minitoc}
 \RequirePackage{palatino}
-\RequirePackage{natbib}
 \RequirePackage{pxfonts}
 \RequirePackage{enumitem}
 \RequirePackage{booktabs}
 \RequirePackage{multirow}
+\RequirePackage{xcolor}
 
+% ---------------------------------------------------
+% Couleur
+% ---------------------------------------------------
+\definecolor{chapter}{rgb}{0.932,0.36,0.26}
+\definecolor{attention}{HTML}{CC3311}
+\definecolor{application}{HTML}{0077BB}
+\definecolor{definition}{HTML}{009988}
+\definecolor{equation}{HTML}{009988}
+\definecolor{theoreme}{HTML}{EE7733}
+
+% Space
+\newcommand{\beforespace}{\vspace{0pt}}
+\newcommand{\afterspace}{\vspace{0pt}}
 
 % --------------------------------------
 % Options
@@ -48,9 +52,6 @@ coucou
 % --------------------------------------------
 % Divers commandes
 % --------------------------------------------
-\renewcommand{\emph}[1]{\textbf{#1}}
-\newcommand{\todo}[1]{\textcolor{red}{[TODO : #1]}}
-\renewcommand{\mtctitle}{Plan du chapitre} 
 \graphicspath{image/}
 \renewcommand{\FrenchLabelItem}{\textbullet}
 \setlength{\parindent}{0pt}
@@ -58,39 +59,17 @@ coucou
 % -------------------------------------
 % Blank
 % -------------------------------------
-\newcommand{\blank}[2][]{#2}
-\newcommand{\blankn}[2][]{#2}
+\newcommand{\blank}[1]{#1}
 \if@student
-\renewcommand{\blank}[2][white]{
-\textcolor{#1}{\Large{#2}} 
-}
-\renewcommand{\blankn}[2][white]{}
+\renewcommand{\blank}[1]{}
 \fi
-
-% -------------------------------------------
-\newcommand{\version}[2]{#1}
-\if@student
-	\renewcommand{\version}[2]{#2}
-\fi
-
-% -------------------------------------------
-% Correction
-% -------------------------------------------
-\setcounter{tocdepth}{2}
-\newcounter{exercice}
-\newcounter{exoraux}
-\newcounter{correction}
-\newcounter{tpsec}
-\newcounter{questionc}
-\newcounter{exemple}
-\setcounter{questionc}{0}
 
 % --------------------------------------------
 % tccolorbox
 % --------------------------------------------
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
-\tcbset{use color stack=true, skin=enhanced, breakable=true, parbox=false}
+\tcbset{skin=enhanced, breakable=true, parbox=false}
 
 \def\author{}
 \def\group{}
@@ -106,28 +85,12 @@ coucou
 % Chapter, Section, ...
 % -------------------------------------------------------
 % Chapter
-\titleformat{\chapter}[display] 
-    {\huge \selectfont \bfseries}
-    {\chaptertitlename\ \thechapter
-    }
-    %{\chaptertitlename\}% \thechapter}
-    {20pt}
-    {\Huge}
-    [\vspace{1cm}
-    \minitoc
-    \setcounter{exercice}{0}
-    \setcounter{correction}{0}
-    \setcounter{questionc}{0}
-    \setcounter{exemple}{0}
-    ]
-
- \titleformat{name=\chapter,numberless}[display] 
-    {\huge \selectfont \bfseries}
-    {}
-    %{\chaptertitlename\}% \thechapter}
-    {20pt}
-    {\Huge}
 \renewcommand{\thechapter}{\Roman{chapter}}
+\titleformat{\chapter}[block] 
+    {\huge \selectfont \bfseries \color{chapter}}
+    {\chaptertitlename\ \thechapter :}
+    {20pt}
+    {}
 
 % Section
 \renewcommand{\thesection}{\arabic{section}}
@@ -154,20 +117,33 @@ coucou
 {12pt}
 {}
 
-
-
 % -----------------------------------
 % Environnements
 % -----------------------------------
-% question
-\newenvironment{question}
+
+% tableau
+\newenvironment{tableau}
 {
-\addtocounter{questionc}{1}
-\begin{tcolorbox}[arc=1ex, colback=white, 
-       colframe=black, left=3pt,
-       right=3pt, top=0em, bottom=0em, colbacktitle=white,
-       coltitle=black, fonttitle=\bfseries, title=Au tableau~\thequestionc, 
-       attach boxed title to top left={xshift=-5mm, yshift=-1mm}]
+\begin{tcolorbox}[colback=black!10, colframe=white,
+       right=3pt, top=5pt, bottom=5pt, 
+       colbacktitle=white, coltitle=black,
+       before=\beforespace, after=\afterspace,
+       title=\faChalkboardTeacher\ Au tableau, 
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{eqn}[1]
+{
+\begin{tcolorbox}[colback=white, colframe=equation,
+       right=3pt, top=5pt, bottom=5pt, 
+       colbacktitle=white, coltitle=equation,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faSquareRoot* \ #1, fonttitle=\bfseries]
 }
 {
 \end{tcolorbox}
@@ -175,40 +151,48 @@ coucou
 
 \newenvironment{application}
 {
-\begin{tcolorbox}[arc=1ex, colback=white, 
-       colframe=black, left=3pt,
-       right=3pt, top=0em, bottom=0em, colbacktitle=white,
-       coltitle=black, fonttitle=\bfseries, title=Application, 
-       attach boxed title to top left={xshift=-5mm, yshift=-1mm}]
+\begin{tcolorbox}[  
+       enhanced, frame hidden,
+       interior hidden, 
+       coltitle=application,
+       title=\faBatteryHalf\ Application, 
+       fonttitle=\bfseries,
+       borderline west=
+       {2pt}{1pt}{application}
+       ] 
 }
 {
 \end{tcolorbox}
 }
 
 % Définition
-\newenvironment{defn}[1]
+\newenvironment{defn}
 {
-\begin{tcolorbox}[arc=1ex, colback=\defnbgcolor, 
-       colframe=\defnbgcolor, left=3pt,
-       right=3pt, top=0.2em, bottom=0.2em, title=#1, fonttitle=\bfseries,
-       coltitle=black]
+\begin{tcolorbox}[colback=white, colframe=definition,
+       right=3pt, top=5pt, bottom=5pt, colbacktitle=white, coltitle=definition,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faBook\ Définition, fonttitle=\bfseries]
 }
 {
 \end{tcolorbox}
 }
 
-% Exemple
-\newenvironment{exemple}
+
+% Théorème
+\newenvironment{theoreme}
 {
 \addtocounter{exemple}{1}
 \begin{tcolorbox}[arc=1ex, colback=black!10, colframe=black!10, left=0.5cm,
        right=3pt, top=0.2em, bottom=1pt, fonttitle=\bfseries, 
-       title = Exemple~\theexemple , coltitle=black, lefttitle=0cm, colbacktitle=black!10]
+       title = Théorème~\theexemple , 
+       coltitle=black, lefttitle=0cm, 
+       colbacktitle=black!10]
 }
 {
 \end{tcolorbox}
 }
-
 
 %Remarques
 \newenvironment{rema}
@@ -221,11 +205,15 @@ coucou
 % Attention 
 \newenvironment{attention}
 {
-\begin{tcolorbox}[colback=white, colframe=\attentioncolor,
-       right=3pt, top=1pt, bottom=5pt, colbacktitle=\attentioncolor,
+\begin{tcolorbox}[colback=attention!20, 
+       colframe=white,
+       right=3pt, top=5pt, bottom=5pt, 
+       colbacktitle=white, coltitle=attention,
        before=\beforespace, after=\afterspace,
-       attach boxed title to top left={xshift=-5mm, yshift=-1mm},
-       title=Attention~!, fonttitle=\bfseries]
+       attach boxed title to top left={xshift=0mm, yshift=0mm},
+       boxed title style = {colframe=white},
+       title=\faExclamationTriangle\ Attention, 
+       fonttitle=\bfseries]
 }
 {
 \end{tcolorbox}
@@ -233,234 +221,18 @@ coucou
 
 \newenvironment{methode}
 {
-\begin{tcolorbox}[colback=white, colframe=seagreen,
-       right=3pt, top=1pt, bottom=5pt, colbacktitle=seagreen,
+\begin{tcolorbox}[colback=white, colframe=attention,
+       right=3pt, top=5pt, bottom=5pt, 
+       colbacktitle=white, coltitle=attention,
        before=\beforespace, after=\afterspace,
-       attach boxed title to top left={xshift=-5mm, yshift=-1mm},
-       title=M\'ethode, fonttitle=\bfseries]
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faScrewdriver\ Méthode, 
+       fonttitle=\bfseries]
 }
 {
 \end{tcolorbox}
 }
 
-\newenvironment{important}
-{
-\begin{tcolorbox}[colback=\defnbgcolor, colframe=\defnbgcolor,
-       right=3pt, top=1pt, bottom=5pt, colbacktitle=\defnbgcolor,
-       before=\beforespace, after=\afterspace]
-}
-{
-\end{tcolorbox}
-}
-
-% Objectifs 
-\newlist{objlist}{itemize}{1}
-\setlist[objlist,1]{%
-             labelsep=*,
-             label=$\square$,
-             leftmargin=16pt,
-             labelindent=0pt}
-
-\newenvironment{objectif}
-{
-\begin{tcolorbox}[colback=white, colframe=\objectifcolor,
-       right=3pt, top=1cm, bottom=0.5cm, colbacktitle=\objectifcolor,
-       before=\beforespace, after=\afterspace,
-       attach boxed title to top center={yshift=-5mm},
-       title=Objectifs, fonttitle=\bfseries\Large]
-\begin{objlist}
-}
-{
-\end{objlist}
-\end{tcolorbox}
-}
-
-\newenvironment{bref}
-{
-\begin{tcolorbox}[colback=white, colframe=\objectifcolor,
-       right=3pt, top=1cm, bottom=0.5cm, colbacktitle=\objectifcolor,
-       before=\beforespace, after=\afterspace,
-       attach boxed title to top center={yshift=-5mm},
-       title=En bref, fonttitle=\bfseries\Large]
-}
-{
-\end{tcolorbox}
-}
-
-% --------------------------------
-% Exercice
-% --------------------------------
-\newenvironment{td}[1]
-{
-\clearpage
-\thispagestyle{empty}
-\def\leftmark{Travaux dirigés}
-\def\rightmark{#1}
-\begin{center}
-\LARGE\bfseries Travaux dirigés : #1 \\[3mm]
-\end{center}
-\addcontentsline{toc}{section}{Exercices}
-}
-{
-\clearpage
-}
-
-\titleclass{\exercice}{straight}[\subsection]
-\titleformat{\exercice}[block] 
-{\Large \selectfont \bfseries}
-{\theexercice : }
-{12pt}
-{}
-\titlespacing*{\exercice}{0pt}{1.5ex plus 1ex minus 0.2ex}{0.5ex plus 0.2ex}
-\renewcommand{\theexercice}{Exercice~\arabic{exercice}}
-\dottedcontents{exercice}[]{}{}{}
-
-\newlist{exlist}{enumerate}{2}
-\setlist[exlist,1]{%
-             labelsep=*,
-             label=\arabic*.,
-             leftmargin=16pt,
-             labelindent=0pt}
-
-\setlist[exlist,2]{%
-             labelsep=*,
-	     label=\alph*),
-             leftmargin=20pt,
-             labelindent=0pt
-     	     }
-
-\newcommand{\exoraux}
-{	
-	\vspace{0.5cm}
-	\hline
-	\addtocounter{exoraux}{1}
-	{\Large \textbf{\theexoraux}}.
-}
-% --------------------------------
-% Correction
-% --------------------------------
-\newenvironment{corr}[1]
-{
-\clearpage
-\thispagestyle{empty}
-\def\leftmark{Correction}
-\def\rightmark{#1}
-\begin{center}
-\LARGE\bfseries Correction : #1 \\[3mm]
-\end{center}
-\addcontentsline{toc}{section}{Correction}
-}
-{
-\clearpage
-}
-\titleclass{\correction}{straight}[\subsection]
-\titleformat{\correction}[block] 
-{\Large \selectfont \bfseries}
-{\thecorrection : }
-{12pt}
-{}
-\titlespacing*{\correction}{0pt}{3.5ex plus 1ex minus .2ex}{2.3 ex plus .2ex}
-\renewcommand{\thecorrection}{Exercice~\arabic{correction}}
-\dottedcontents{correction}[]{}{}{}
-
-\newlist{corrlist}{enumerate}{2}
-\setlist[corrlist,1]{%
-             labelsep=*,
-             label=\arabic*.,
-             leftmargin=16pt,
-             labelindent=0pt,
-     	     itemindent=0pt}
-
-\setlist[corrlist,2]{%
-             labelsep=*,
-	     label=\alph*.,
-             leftmargin=16pt,
-     	     labelindent=-4pt}
-\if@student
-\excludecomment{corr}
-\fi
 
 
-% --------------------------------
-% Devoir
-% --------------------------------
-\newcounter{pastyear}
-\newcounter{newyear}
-\setcounter{pastyear}{\the\year}
-\setcounter{newyear}{\the\year}
-\addtocounter{pastyear}{-1}
-\addtocounter{newyear}{1}
-\def\type{}
-\def\lieu{}
-\def\title{}
-\def\classe{}
-\newcommand{\devoir}[3]
-{%1 Titre %2 Data %3 Durée
-	\thispagestyle{plain}
-\begin{minipage}[t]{0.3\linewidth}
-	Année \thepastyear--\the\year \\
-	\lieu \\
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.1\linewidth}
-\begin{flushleft}
-	{\bfseries \classe} \\
-\end{flushleft}
-\end{minipage}
-\vspace{1cm}
-\hrule height 0.3mm
-\begin{center}
-	{\large \type} \\[5mm]
-{\huge\bfseries #1} \\[5mm]
-#2 -- #3 
-\end{center}
-
-\hrule height 0.3mm
-\vspace{1cm}
-
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
-{\nouppercase{\type}}}
-\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
-\fancyfoot{}
-}
-
-% --------------------------------
-% Travaux Pratiques
-% --------------------------------
-%\titleclass{\tpsec}{straight}[\subsection]
-%\titleformat{\tpsec}[block] 
-%{\Large \selectfont \bfseries}
-%{\thetpsec.~}
-%{12pt}
-%{}
-%\titlespacing*{\tpsec}{0pt}{1.5ex plus 1ex minus .2ex}{0.5 ex plus .2ex}
-%\renewcommand{\thetpsec}{\arabic{tpsec}}
-
-\newcommand{\TP}[1]
-{%1 Titre
-	\setcounter{section}{0}
-	\thispagestyle{plain}
-\begin{flushleft}
-{\huge\bfseries Travaux pratiques : #1}
-\end{flushleft}
-
-%\vspace{0.5cm}
-
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
-{\nouppercase{\bfseries#1}}}
-\rhead[\fancyplain{}{\nouppercase{Travaux pratiques}}]{\fancyplain{}{\bfseries\thepage}}
-\fancyfoot{}
-}
-
-\newcommand{\divers}[1]
-{%1 Titre
-\thispagestyle{plain}
-\begin{flushleft}
-{\huge\bfseries #1}
-\end{flushleft}
-
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
-{\nouppercase{\bfseries#1}}}
-\rhead[\fancyplain{}{\nouppercase{Travaux pratiques}}]{\fancyplain{}{\bfseries\thepage}}
-\fancyfoot{}
-}
