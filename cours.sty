@@ -8,10 +8,11 @@
 \RequirePackage[table,svgnames]{xcolor}
 \RequirePackage{theme}
 \RequirePackage{amsmath,amssymb}
-\RequirePackage{tcolorbox}
+\RequirePackage[skins]{tcolorbox}
 \RequirePackage{ifthen}
 \RequirePackage{hyperref}
 \RequirePackage{comment}
+\RequirePackage{pdfcol}
 \hypersetup{
 	colorlinks=True,
 	urlcolor=\colorlink,
@@ -21,9 +22,9 @@
 \RequirePackage{framed}
 \RequirePackage[sectionbib]{bibunits}
 \RequirePackage{natbib}
-\RequirePackage[squaren,Gray,cdot]{SIunits}
+\RequirePackage[squaren,Gray,cdot, load=addn]{SIunits}
 \RequirePackage{fleqn}
-\RequirePackage[a4paper,hmargin=2.5cm,vmargin=2cm]{geometry}
+\RequirePackage[a4paper,hmargin=2cm,vmargin=1.5cm]{geometry}
 \RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
 		labelfont=bf]{caption}
 \RequirePackage{minitoc}
@@ -31,6 +32,8 @@
 \RequirePackage{natbib}
 \RequirePackage{pxfonts}
 \RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
 
 
 % --------------------------------------
@@ -44,7 +47,7 @@
 % --------------------------------------------
 % Divers commandes
 % --------------------------------------------
-\renewcommand{\emph}[1]{\textcolor{\emphcolor}{\textbf{#1}}}
+\renewcommand{\emph}[1]{\textbf{#1}}
 \newcommand{\todo}[1]{\textcolor{red}{[TODO : #1]}}
 \renewcommand{\mtctitle}{Plan du chapitre} 
 \graphicspath{image/}
@@ -54,9 +57,13 @@
 % -------------------------------------
 % Blank
 % -------------------------------------
-\newcommand{\blank}[1]{#1}
+\newcommand{\blank}[2][]{#2}
+\newcommand{\blankn}[2][]{#2}
 \if@student
-\renewcommand{\blank}[1]{\phantom{#1}}
+\renewcommand{\blank}[2][white]{
+\textcolor{#1}{\Large{#2}} 
+}
+\renewcommand{\blankn}[2][white]{}
 \fi
 
 % -------------------------------------------
@@ -70,19 +77,22 @@
 % -------------------------------------------
 \setcounter{tocdepth}{2}
 \newcounter{exercice}
-\newcounter{tpsec}
+\newcounter{exoraux}
 \newcounter{correction}
+\newcounter{tpsec}
+\newcounter{questionc}
+\newcounter{exemple}
+\setcounter{questionc}{0}
 
 % --------------------------------------------
 % tccolorbox
 % --------------------------------------------
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
-\tcbset{skin=enhanced, breakable=true, parbox=false}
+\tcbset{use color stack=true, skin=enhanced, breakable=true, parbox=false}
 
 \def\author{}
 \def\group{}
-\def\title{}
 \RequirePackage{fancyhdr}
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
 {\nouppercase{\bfseries\leftmark}}}
@@ -106,6 +116,8 @@
     \minitoc
     \setcounter{exercice}{0}
     \setcounter{correction}{0}
+    \setcounter{questionc}{0}
+    \setcounter{exemple}{0}
     ]
 
  \titleformat{name=\chapter,numberless}[display] 
@@ -114,11 +126,12 @@
     %{\chaptertitlename\}% \thechapter}
     {20pt}
     {\Huge}
+\renewcommand{\thechapter}{\Roman{chapter}}
 
 % Section
-\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesection}{\arabic{section}}
 \titleformat{\section}[block] 
-{\LARGE \selectfont \bfseries \color{\sectioncolor}}
+{\LARGE \selectfont \bfseries}
 {\thesection.}
 {12pt}
 {}
@@ -127,63 +140,74 @@
 \renewcommand{\thesubsection}{\arabic{subsection}}
 \titleformat{\subsection}[hang] 
 {\Large \selectfont \bfseries}
-{\thesubsection.}
+{\thesection.\thesubsection.}
 {12pt}
 {}
 
 % Subsubsection
-\setcounter{secnumdepth}{4}
-\renewcommand{\thesubsubsection}{\arabic{subsection}. \alph{subsubsection}.}
-\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-     {-2.0ex\@plus -1ex \@minus -.2ex}% 
-     {0.75ex \@plus .2ex}%
-     {\normalfont\normalsize\bfseries}}
+\setcounter{secnumdepth}{5}
+\renewcommand{\thesubsubsection}{\alph{subsubsection}}
+\titleformat{\subsubsection}[hang] 
+{\large \selectfont \bfseries}
+{\thesection.\thesubsection.\thesubsubsection}
+{12pt}
+{}
 
 
 
 % -----------------------------------
 % Environnements
 % -----------------------------------
+% question
+\newenvironment{question}
+{
+\addtocounter{questionc}{1}
+\begin{tcolorbox}[arc=1ex, colback=white, 
+       colframe=black, left=3pt,
+       right=3pt, top=0em, bottom=0em, colbacktitle=white,
+       coltitle=black, fonttitle=\bfseries, title=Au tableau~\thequestionc, 
+       attach boxed title to top left={xshift=-5mm, yshift=-1mm}]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{application}
+{
+\begin{tcolorbox}[arc=1ex, colback=white, 
+       colframe=black, left=3pt,
+       right=3pt, top=0em, bottom=0em, colbacktitle=white,
+       coltitle=black, fonttitle=\bfseries, title=Application, 
+       attach boxed title to top left={xshift=-5mm, yshift=-1mm}]
+}
+{
+\end{tcolorbox}
+}
 
 % Définition
 \newenvironment{defn}[1]
 {
 \begin{tcolorbox}[arc=1ex, colback=\defnbgcolor, 
        colframe=\defnbgcolor, left=3pt,
-       right=3pt, top=1pt, bottom=1pt, title=#1, fonttitle=\bfseries,
-       coltitle=black, before=\beforespace, after=\afterspace]
+       right=3pt, top=0.2em, bottom=0.2em, title=#1, fonttitle=\bfseries,
+       coltitle=black]
 }
 {
 \end{tcolorbox}
 }
 
 % Exemple
-\newcounter{count@exemple}[chapter]
 \newenvironment{exemple}
 {
-\refstepcounter{count@exemple}
+\addtocounter{exemple}{1}
 \begin{tcolorbox}[arc=1ex, colback=black!10, colframe=black!10, left=0.5cm,
-       right=3pt, top=1pt, bottom=1pt, fonttitle=\bfseries, 
-       title = Exemple : , coltitle=black, lefttitle=0cm, colbacktitle=black!10,
-       before=\beforespace, after=\afterspace]
+       right=3pt, top=0.2em, bottom=1pt, fonttitle=\bfseries, 
+       title = Exemple~\theexemple , coltitle=black, lefttitle=0cm, colbacktitle=black!10]
 }
 {
 \end{tcolorbox}
 }
 
-\if@student
-\renewenvironment{exemple}
-{
-\refstepcounter{count@exemple}
-\begin{tcolorbox}[arc=1ex, colback=black!10, colframe=black!10, left=0.5cm,
-       right=3pt, top=1pt, bottom=10cm, fonttitle=\bfseries, 
-       title = Exemple : , coltitle=black, lefttitle=0cm, colbacktitle=black!10,
-       before=\beforespace, after=\afterspace, invisible, titlebox=visible]
-}
-{
-\end{tcolorbox}
-}
-\fi
 
 %Remarques
 \newenvironment{rema}
@@ -193,15 +217,36 @@
 {
 }
 
-
 % Attention 
 \newenvironment{attention}
 {
 \begin{tcolorbox}[colback=white, colframe=\attentioncolor,
-       right=3pt, top=1pt, bottom=0pt, colbacktitle=\attentioncolor,
+       right=3pt, top=1pt, bottom=5pt, colbacktitle=\attentioncolor,
        before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=-5mm, yshift=-1mm},
        title=Attention~!, fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{methode}
+{
+\begin{tcolorbox}[colback=white, colframe=seagreen,
+       right=3pt, top=1pt, bottom=5pt, colbacktitle=seagreen,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=-5mm, yshift=-1mm},
+       title=M\'ethode, fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{important}
+{
+\begin{tcolorbox}[colback=\defnbgcolor, colframe=\defnbgcolor,
+       right=3pt, top=1pt, bottom=5pt, colbacktitle=\defnbgcolor,
+       before=\beforespace, after=\afterspace]
 }
 {
 \end{tcolorbox}
@@ -229,12 +274,25 @@
 \end{tcolorbox}
 }
 
+\newenvironment{bref}
+{
+\begin{tcolorbox}[colback=white, colframe=\objectifcolor,
+       right=3pt, top=1cm, bottom=0.5cm, colbacktitle=\objectifcolor,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top center={yshift=-5mm},
+       title=En bref, fonttitle=\bfseries\Large]
+}
+{
+\end{tcolorbox}
+}
+
 % --------------------------------
 % Exercice
 % --------------------------------
 \newenvironment{td}[1]
 {
 \clearpage
+\thispagestyle{empty}
 \def\leftmark{Travaux dirigés}
 \def\rightmark{#1}
 \begin{center}
@@ -252,7 +310,7 @@
 {\theexercice : }
 {12pt}
 {}
-\titlespacing*{\exercice}{0pt}{1.5ex plus 1ex minus .2ex}{0.5 ex plus .2ex}
+\titlespacing*{\exercice}{0pt}{1.5ex plus 1ex minus 0.2ex}{0.5ex plus 0.2ex}
 \renewcommand{\theexercice}{Exercice~\arabic{exercice}}
 \dottedcontents{exercice}[]{}{}{}
 
@@ -264,18 +322,26 @@
              labelindent=0pt}
 
 \setlist[exlist,2]{%
-             labelsep=12pt,
-	     label=\alph*.,
-             leftmargin=16pt,
-             labelindent=-4pt
+             labelsep=*,
+	     label=\alph*),
+             leftmargin=20pt,
+             labelindent=0pt
      	     }
 
+\newcommand{\exoraux}
+{	
+	\vspace{0.5cm}
+	\hline
+	\addtocounter{exoraux}{1}
+	{\Large \textbf{\theexoraux}}.
+}
 % --------------------------------
 % Correction
 % --------------------------------
 \newenvironment{corr}[1]
 {
 \clearpage
+\thispagestyle{empty}
 \def\leftmark{Correction}
 \def\rightmark{#1}
 \begin{center}
@@ -318,8 +384,11 @@
 % Devoir
 % --------------------------------
 \newcounter{pastyear}
+\newcounter{newyear}
 \setcounter{pastyear}{\the\year}
+\setcounter{newyear}{\the\year}
 \addtocounter{pastyear}{-1}
+\addtocounter{newyear}{1}
 \def\type{}
 \def\lieu{}
 \def\title{}
@@ -337,43 +406,39 @@
 	{\bfseries \classe} \\
 \end{flushleft}
 \end{minipage}
-
-\hrule
+\vspace{1cm}
+\hrule height 0.3mm
 \begin{center}
 	{\large \type} \\[5mm]
 {\huge\bfseries #1} \\[5mm]
 #2 -- #3 
 \end{center}
 
-\hrule 
+\hrule height 0.3mm
 \vspace{1cm}
 
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
-{\nouppercase{\bfseries#1}}}
-\rhead[\fancyplain{}{\nouppercase{\type}}]{\fancyplain{}{\bfseries\thepage}}
+{\nouppercase{\type}}}
+\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
 \fancyfoot{}
 }
 
 % --------------------------------
 % Travaux Pratiques
 % --------------------------------
+%\titleclass{\tpsec}{straight}[\subsection]
+%\titleformat{\tpsec}[block] 
+%{\Large \selectfont \bfseries}
+%{\thetpsec.~}
+%{12pt}
+%{}
+%\titlespacing*{\tpsec}{0pt}{1.5ex plus 1ex minus .2ex}{0.5 ex plus .2ex}
+%\renewcommand{\thetpsec}{\arabic{tpsec}}
+
 \newcommand{\TP}[1]
 {%1 Titre
+	\setcounter{section}{0}
 	\thispagestyle{plain}
-\begin{minipage}[t]{0.3\linewidth}
-	Année \thepastyear--\the\year \\
-	\lieu \\
-	Travaux pratiques 
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.1\linewidth}
-\begin{flushleft}
-	{\bfseries \classe} \\
-\end{flushleft}
-\end{minipage}
-
-\vspace{0.5cm}
-
 \begin{flushleft}
 {\huge\bfseries Travaux pratiques : #1}
 \end{flushleft}
@@ -386,12 +451,15 @@
 \fancyfoot{}
 }
 
-\titleclass{\tpsec}{straight}[\subsection]
-\titleformat{\tpsec}[block] 
-{\Large \selectfont \bfseries}
-{\thetpsec.~}
-{12pt}
-{}
-\titlespacing*{\tpsec}{0pt}{1.5ex plus 1ex minus .2ex}{0.5 ex plus .2ex}
-\renewcommand{\thetpsec}{\arabic{tpsec}}
+\newcommand{\divers}[1]
+{%1 Titre
+\thispagestyle{plain}
+\begin{flushleft}
+{\huge\bfseries #1}
+\end{flushleft}
 
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries#1}}}
+\rhead[\fancyplain{}{\nouppercase{Travaux pratiques}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
+}
