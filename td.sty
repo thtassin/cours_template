@@ -1,0 +1,108 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{td}
+\RequirePackage{titlesec, titletoc}
+\RequirePackage{graphicx}
+\RequirePackage{fontawesome5}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[french]{babel}
+\RequirePackage[table,svgnames]{xcolor}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage[skins]{tcolorbox}
+\RequirePackage{ifthen}
+\RequirePackage{hyperref}
+\RequirePackage{comment}
+\RequirePackage{pdfcol}
+\RequirePackage{framed}
+\RequirePackage[squaren,Gray,cdot, load=addn]{SIunits}
+\RequirePackage{fleqn}
+\RequirePackage[a4paper,hmargin=0.5cm,vmargin=1.5cm, landscape, twocolumn]{geometry}
+\RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
+		labelfont=bf]{caption}
+\RequirePackage{palatino}
+\RequirePackage{pxfonts}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{xcolor}
+
+% ---------------------------------------------------
+% Couleur
+% ---------------------------------------------------
+\definecolor{chapter}{HTML}{009988}
+
+% Space
+\newcommand{\beforespace}{\vspace{0pt}}
+\newcommand{\afterspace}{\vspace{0pt}}
+
+% --------------------------------------
+% Options
+% -------------------------------------
+\newif\if@student
+\DeclareOption{student}{\@studenttrue}
+
+\ProcessOptions
+
+\setlength{\parindent}{0pt}
+
+% -------------------------------------
+% Blank
+% -------------------------------------
+\newcommand{\correction}[1]{
+\begin{tcolorbox}[  
+       enhanced, frame hidden,
+       interior hidden, 
+       coltitle=black,
+       title=Correction , 
+       fonttitle=\bfseries,
+       borderline west=
+       {2pt}{1pt}{black}
+       ] 
+#1
+\end{tcolorbox}
+}
+
+\if@student
+\renewcommand{\correction}[1]{}
+\fi
+
+% --------------------------------------------
+% tccolorbox
+% --------------------------------------------
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
+\tcbset{skin=enhanced, breakable=true, parbox=false}
+
+\def\author{}
+\def\group{}
+\RequirePackage{fancyhdr}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries\leftmark}}}
+\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\itshape\group}
+\pagestyle{fancyplain}
+
+% -------------------------------------------------------
+% Chapter, Section, ...
+% -------------------------------------------------------
+% Chapter
+\renewcommand{\thechapter}{\Roman{chapter}}
+\titleformat{\chapter}[block] 
+    {\huge \selectfont \bfseries \color{chapter}}
+    {\faSearch\ TD~\thechapter :}
+    {12pt}
+    {}
+    [\vspace{12pt}]
+\titlespacing{\chapter}{0pt}{3pt plus 2pt minus 2pt}{5pt plus 1.5pt minus 0.25pt}
+
+% Section
+\renewcommand{\thesection}{\arabic{section}}
+\titleformat{\section}[block] 
+{\large \selectfont \bfseries}
+{Exercice~\thesection : }
+{10pt}
+{}
+\titlespacing{\section}{0pt}{15pt plus 2pt minus 2pt}{3pt plus 1.5pt minus 0.25pt}
+
+

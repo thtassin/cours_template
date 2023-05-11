@@ -7,7 +7,6 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage[french]{babel}
 \RequirePackage[table,svgnames]{xcolor}
-\RequirePackage{theme}
 \RequirePackage{amsmath,amssymb}
 \RequirePackage[skins]{tcolorbox}
 \RequirePackage{ifthen}
@@ -30,12 +29,14 @@
 % ---------------------------------------------------
 % Couleur
 % ---------------------------------------------------
-\definecolor{chapter}{rgb}{0.932,0.36,0.26}
+\definecolor{chapter}{HTML}{009988}
 \definecolor{attention}{HTML}{CC3311}
 \definecolor{application}{HTML}{0077BB}
+\definecolor{methode}{HTML}{009988}
 \definecolor{definition}{HTML}{009988}
 \definecolor{equation}{HTML}{009988}
-\definecolor{theoreme}{HTML}{EE7733}
+\definecolor{theoreme}{HTML}{009988}
+\definecolor{tableau}{HTML}{EE7733}
 
 % Space
 \newcommand{\beforespace}{\vspace{0pt}}
@@ -91,22 +92,26 @@
     {\chaptertitlename\ \thechapter :}
     {20pt}
     {}
+    [\vspace{12pt}]
+\titlespacing{\chapter}{0pt}{3pt plus 2pt minus 2pt}{5pt plus 1.5pt minus 0.25pt}
 
 % Section
 \renewcommand{\thesection}{\arabic{section}}
 \titleformat{\section}[block] 
 {\LARGE \selectfont \bfseries}
 {\thesection.}
-{12pt}
+{10pt}
 {}
+\titlespacing{\section}{0pt}{3pt plus 2pt minus 2pt}{3pt plus 1.5pt minus 0.25pt}
 
 % Subsection
 \renewcommand{\thesubsection}{\arabic{subsection}}
 \titleformat{\subsection}[hang] 
 {\Large \selectfont \bfseries}
 {\thesection.\thesubsection.}
-{12pt}
+{10pt}
 {}
+\titlespacing{\subsection}{0pt}{3pt plus 2pt minus 2pt}{3pt plus 1.5pt minus 0.25pt}
 
 % Subsubsection
 \setcounter{secnumdepth}{5}
@@ -114,8 +119,9 @@
 \titleformat{\subsubsection}[hang] 
 {\large \selectfont \bfseries}
 {\thesection.\thesubsection.\thesubsubsection}
-{12pt}
+{10pt}
 {}
+\titlespacing{\subsubsection}{0pt}{2pt plus 2pt minus 2pt}{2pt plus 1.5pt minus 0.25pt}
 
 % -----------------------------------
 % Environnements
@@ -124,12 +130,15 @@
 % tableau
 \newenvironment{tableau}
 {
-\begin{tcolorbox}[colback=black!10, colframe=white,
-       right=3pt, top=5pt, bottom=5pt, 
-       colbacktitle=white, coltitle=black,
-       before=\beforespace, after=\afterspace,
+\begin{tcolorbox}[enhanced, frame hidden,
+       interior hidden, 
+       coltitle=tableau,
        title=\faChalkboardTeacher\ Au tableau, 
-       fonttitle=\bfseries]
+       fonttitle=\bfseries,
+       borderline east= {2pt}{1pt}{tableau},
+       borderline west= {2pt}{1pt}{tableau}
+       ] 
+
 }
 {
 \end{tcolorbox}
@@ -155,7 +164,7 @@
        enhanced, frame hidden,
        interior hidden, 
        coltitle=application,
-       title=\faBatteryHalf\ Application, 
+       title=\faEdit\ Application, 
        fonttitle=\bfseries,
        borderline west=
        {2pt}{1pt}{application}
@@ -173,7 +182,7 @@
        before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
        boxed title style = {colframe=white},
-       title=\faBook\ Définition, fonttitle=\bfseries]
+       title=\faSave\ Définition, fonttitle=\bfseries]
 }
 {
 \end{tcolorbox}
@@ -181,14 +190,14 @@
 
 
 % Théorème
-\newenvironment{theoreme}
+\newenvironment{theoreme}[1]
 {
-\addtocounter{exemple}{1}
-\begin{tcolorbox}[arc=1ex, colback=black!10, colframe=black!10, left=0.5cm,
-       right=3pt, top=0.2em, bottom=1pt, fonttitle=\bfseries, 
-       title = Théorème~\theexemple , 
-       coltitle=black, lefttitle=0cm, 
-       colbacktitle=black!10]
+\begin{tcolorbox}[colback=white, colframe=theoreme,
+       right=3pt, top=5pt, bottom=5pt, colbacktitle=white, coltitle=theoreme,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faUserGraduate\ #1, fonttitle=\bfseries]
 }
 {
 \end{tcolorbox}
@@ -197,9 +206,13 @@
 %Remarques
 \newenvironment{rema}
 {
+\begin{tcolorbox}[colback=white, colframe=white,
+       right=3pt, top=5pt, bottom=5pt,
+       before=\beforespace, after=\afterspace]
 \textbf{Remarque : }
 }
 {
+\end{tcolorbox}
 }
 
 % Attention 
@@ -221,13 +234,13 @@
 
 \newenvironment{methode}
 {
-\begin{tcolorbox}[colback=white, colframe=attention,
+\begin{tcolorbox}[colback=white, colframe=methode,
        right=3pt, top=5pt, bottom=5pt, 
-       colbacktitle=white, coltitle=attention,
+       colbacktitle=white, coltitle=methode,
        before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
        boxed title style = {colframe=white},
-       title=\faScrewdriver\ Méthode, 
+       title=\faToolbox\ Méthode, 
        fonttitle=\bfseries]
 }
 {
