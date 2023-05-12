@@ -37,10 +37,12 @@
 \definecolor{equation}{HTML}{009988}
 \definecolor{theoreme}{HTML}{009988}
 \definecolor{tableau}{HTML}{EE7733}
+\definecolor{rappel}{HTML}{BBBBBB}
 
 % Space
 \newcommand{\beforespace}{\vspace{0pt}}
 \newcommand{\afterspace}{\vspace{0pt}}
+\newcommand{\imp}[1]{{\bfseries \color{definition} #1}}
 
 % --------------------------------------
 % Options
@@ -70,7 +72,7 @@
 % --------------------------------------------
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
-\tcbset{skin=enhanced, breakable=true, parbox=false}
+\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=5pt}
 
 \def\author{}
 \def\group{}
@@ -126,6 +128,25 @@
 % -----------------------------------
 % Environnements
 % -----------------------------------
+% Rappel
+\newenvironment{rappel}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=rappel!20,
+       colbacktitle=rappel!20,
+       title=\faFileUpload\ Rappel, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ },
+       borderline east= {2pt}{1pt}{rappel},
+       borderline west= {2pt}{1pt}{rappel}
+       ] 
+}
+{
+\end{tcolorbox}
+}
+
 
 % tableau
 \newenvironment{tableau}
@@ -197,6 +218,19 @@
 \end{tcolorbox}
 }
 
+% Coeur
+\newenvironment{coeur}
+{
+\begin{tcolorbox}[colback=white, colframe=definition,
+       right=3pt, top=5pt, bottom=5pt, colbacktitle=white, coltitle=definition,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faHeart\ À retenir, fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
 
 % Théorème
 \newenvironment{theoreme}[1]
