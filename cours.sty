@@ -68,6 +68,11 @@
 \renewcommand{\blank}[1]{}
 \fi
 
+% -------------------------------------
+% Compteur
+% -------------------------------------
+\newcounter{application}
+
 % --------------------------------------------
 % tccolorbox
 % --------------------------------------------
@@ -191,11 +196,12 @@
 
 \newenvironment{application}
 {
+\refstepcounter{application}
 \begin{tcolorbox}[  
        enhanced, frame hidden,
        interior hidden, 
        coltitle=application,
-       title=\faEdit\ Application, 
+       title=\faEdit\ Application~\theapplication, 
        fonttitle=\bfseries,
        borderline west=
        {2pt}{1pt}{application}
