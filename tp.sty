@@ -16,7 +16,7 @@
 \RequirePackage{framed}
 \RequirePackage[squaren,Gray,cdot, load=addn]{SIunits}
 \RequirePackage{fleqn}
-\RequirePackage[a4paper,hmargin=0.5cm,vmargin=1.5cm, landscape, twocolumn]{geometry}
+\RequirePackage[a4paper,hmargin=0.5cm,vmargin=0.5cm, landscape, twocolumn]{geometry}
 \RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
 		labelfont=bf]{caption}
 \RequirePackage{palatino}
@@ -31,7 +31,9 @@
 % ---------------------------------------------------
 \definecolor{chapter}{HTML}{CC3311}
 \definecolor{attention}{HTML}{CC3311}
-\definecolor{objectif}{HTML}{009988}
+\definecolor{objectif}{HTML}{0077BB}
+\definecolor{prepa}{HTML}{BBBBBB}
+\definecolor{methode}{HTML}{009988}
 
 % Space
 \newcommand{\beforespace}{\vspace{0pt}}
@@ -43,7 +45,7 @@
 % --------------------------------------------
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
-\tcbset{skin=enhanced, breakable=true, parbox=false}
+\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=1pt}
 
 \def\author{}
 \def\group{}
@@ -75,7 +77,7 @@
 {\thesection. }
 {10pt}
 {}
-\titlespacing{\section}{0pt}{15pt plus 2pt minus 2pt}{3pt plus 1.5pt minus 0.25pt}
+\titlespacing{\section}{0pt}{5pt plus 2pt minus 2pt}{3pt plus 1.5pt minus 0.25pt}
 
 % Subsection
 \renewcommand{\thesubsection}{\arabic{subsection}}
@@ -114,6 +116,39 @@
        title=\faMapMarked*\ Objectifs, 
        coltitle=objectif, fonttitle=\bfseries,
        attach title to upper={\ --- \ }]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{methode}[1]
+{
+\begin{tcolorbox}[colback=white, colframe=methode,
+       right=3pt, top=5pt, bottom=5pt, 
+       colbacktitle=white, coltitle=methode,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faToolbox\ #1, 
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{prepa}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=prepa!20,
+       colbacktitle=prepa!20,
+       title=\faHome\ À préparer, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ },
+       borderline east= {2pt}{1pt}{prepa},
+       borderline west= {2pt}{1pt}{prepa}
+       ] 
 }
 {
 \end{tcolorbox}
