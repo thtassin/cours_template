@@ -39,6 +39,7 @@
 \definecolor{theoreme}{HTML}{009988}
 \definecolor{tableau}{HTML}{EE7733}
 \definecolor{rappel}{HTML}{BBBBBB}
+\definecolor{test}{HTML}{0077BB}
 
 % Space
 \newcommand{\beforespace}{\vspace{0pt}}
@@ -71,7 +72,9 @@
 % -------------------------------------
 % Compteur
 % -------------------------------------
-\newcounter{application}
+\newcounter{application}[chapter]
+\newcounter{test}[chapter]
+\newcounter{tableau}[chapter]
 
 % --------------------------------------------
 % tccolorbox
@@ -157,10 +160,11 @@
 % tableau
 \newenvironment{tableau}
 {
+\refstepcounter{tableau}
 \begin{tcolorbox}[enhanced, frame hidden,
        interior hidden, 
        coltitle=tableau,
-       title=\faChalkboardTeacher\ Au tableau, 
+       title=\faChalkboardTeacher\ Au tableau~\thetableau, 
        fonttitle=\bfseries,
        borderline east= {2pt}{1pt}{tableau},
        borderline west= {2pt}{1pt}{tableau}
@@ -196,7 +200,7 @@
 
 \newenvironment{application}
 {
-\refstepcounter{application}
+	\refstepcounter{application}
 \begin{tcolorbox}[  
        enhanced, frame hidden,
        interior hidden, 
@@ -297,5 +301,21 @@
 \end{tcolorbox}
 }
 
+\newenvironment{test}
+{
+\refstepcounter{test}
+\begin{tcolorbox}[  
+       enhanced, frame hidden,
+       interior hidden, 
+       coltitle=test,
+       title=Test~\thetest~\faSquare~\faCircle~\faPlay, 
+       fonttitle=\bfseries,
+       borderline west=
+       {2pt}{1pt}{test}
+       ] 
+}
+{
+\end{tcolorbox}
+}
 
 
