@@ -84,7 +84,7 @@
 % --------------------------------------------
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
-\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=5pt}
+\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=5pt, top=4pt}
 
 \def\author{}
 \def\group{}
@@ -172,7 +172,6 @@
        borderline east= {2pt}{1pt}{tableau},
        borderline west= {2pt}{1pt}{tableau}
        ] 
-
 }
 {
 \end{tcolorbox}
@@ -188,7 +187,7 @@
 	}
 
 \begin{tcolorbox}[colback=white, colframe=equation,
-       right=3pt, top=5pt, bottom=5pt, 
+       right=3pt, bottom=5pt, 
        colbacktitle=white, coltitle=equation,
        before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
@@ -222,7 +221,7 @@
 \newenvironment{defn}
 {
 \begin{tcolorbox}[colback=white, colframe=definition,
-       right=3pt, top=5pt, bottom=5pt, colbacktitle=white, coltitle=definition,
+       right=3pt, bottom=5pt, colbacktitle=white, coltitle=definition,
        before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
        boxed title style = {colframe=white},
@@ -236,7 +235,7 @@
 \newenvironment{coeur}
 {
 \begin{tcolorbox}[colback=white, colframe=definition,
-       right=3pt, top=5pt, bottom=5pt, colbacktitle=white, coltitle=definition,
+       right=3pt, bottom=5pt, colbacktitle=white, coltitle=definition,
        before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
        boxed title style = {colframe=white},
@@ -250,7 +249,7 @@
 \newenvironment{theoreme}[1]
 {
 \begin{tcolorbox}[colback=white, colframe=theoreme,
-       right=3pt, top=5pt, bottom=5pt, colbacktitle=white, coltitle=theoreme,
+       right=3pt, bottom=5pt, colbacktitle=white, coltitle=theoreme,
        before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
        boxed title style = {colframe=white},
@@ -264,7 +263,7 @@
 \newenvironment{rema}
 {
 \begin{tcolorbox}[colback=white, colframe=white,
-       right=3pt, top=5pt, bottom=5pt,
+       right=3pt, bottom=5pt,
        before=\beforespace, after=\afterspace]
 \textbf{Remarque : }
 }
@@ -277,7 +276,7 @@
 {
 \begin{tcolorbox}[colback=attention!20, 
        colframe=white,
-       right=3pt, top=5pt, bottom=5pt, 
+       right=3pt, bottom=5pt, 
        colbacktitle=white, coltitle=attention,
        before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=0mm, yshift=0mm},
@@ -292,7 +291,7 @@
 \newenvironment{methode}
 {
 \begin{tcolorbox}[colback=white, colframe=methode,
-       right=3pt, top=5pt, bottom=5pt, 
+       right=3pt, bottom=5pt, 
        colbacktitle=white, coltitle=methode,
        before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
