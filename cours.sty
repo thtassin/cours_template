@@ -42,8 +42,6 @@
 \definecolor{test}{HTML}{0077BB}
 
 % Space
-\newcommand{\beforespace}{\vspace{0pt}}
-\newcommand{\afterspace}{\vspace{0pt}}
 \newcommand{\imp}[1]{{\bfseries \color{definition} #1}}
 
 % --------------------------------------
@@ -84,7 +82,7 @@
 % --------------------------------------------
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
-\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=5pt, top=4pt}
+\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=9pt}
 
 \def\author{}
 \def\group{}
@@ -114,18 +112,18 @@
 \titleformat{\section}[block] 
 {\LARGE \selectfont \bfseries}
 {\thesection.}
-{10pt}
+{8pt}
 {}
-\titlespacing{\section}{0pt}{3pt plus 2pt minus 2pt}{3pt plus 1.5pt minus 0.25pt}
+\titlespacing{\section}{0pt}{3pt plus 2pt minus 2pt}{3pt plus 1pt minus 1pt}
 
 % Subsection
 \renewcommand{\thesubsection}{\arabic{subsection}}
 \titleformat{\subsection}[hang] 
 {\Large \selectfont \bfseries}
 {\thesection.\thesubsection.}
-{10pt}
+{8pt}
 {}
-\titlespacing{\subsection}{0pt}{3pt plus 2pt minus 2pt}{3pt plus 1.5pt minus 0.25pt}
+\titlespacing{\subsection}{0pt}{3pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
 
 % Subsubsection
 \setcounter{secnumdepth}{5}
@@ -189,7 +187,6 @@
 \begin{tcolorbox}[colback=white, colframe=equation,
        right=3pt, bottom=5pt, 
        colbacktitle=white, coltitle=equation,
-       before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
        boxed title style = {colframe=white},
        title=\faSquareRoot* \ #2, fonttitle=\bfseries]
@@ -222,7 +219,6 @@
 {
 \begin{tcolorbox}[colback=white, colframe=definition,
        right=3pt, bottom=5pt, colbacktitle=white, coltitle=definition,
-       before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
        boxed title style = {colframe=white},
        title=\faSave\ Définition, fonttitle=\bfseries]
@@ -235,8 +231,7 @@
 \newenvironment{coeur}
 {
 \begin{tcolorbox}[colback=white, colframe=definition,
-       right=3pt, bottom=5pt, colbacktitle=white, coltitle=definition,
-       before=\beforespace, after=\afterspace,
+       right=3pt, colbacktitle=white, coltitle=definition,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
        boxed title style = {colframe=white},
        title=\faHeart\ À retenir, fonttitle=\bfseries]
@@ -250,7 +245,6 @@
 {
 \begin{tcolorbox}[colback=white, colframe=theoreme,
        right=3pt, bottom=5pt, colbacktitle=white, coltitle=theoreme,
-       before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
        boxed title style = {colframe=white},
        title=\faUserGraduate\ #1, fonttitle=\bfseries]
@@ -262,9 +256,7 @@
 %Remarques
 \newenvironment{rema}
 {
-\begin{tcolorbox}[colback=white, colframe=white,
-       right=3pt, bottom=5pt,
-       before=\beforespace, after=\afterspace]
+\begin{tcolorbox}[colback=white, colframe=white,right=3pt]
 \textbf{Remarque : }
 }
 {
@@ -278,7 +270,6 @@
        colframe=white,
        right=3pt, bottom=5pt, 
        colbacktitle=white, coltitle=attention,
-       before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=0mm, yshift=0mm},
        boxed title style = {colframe=white},
        title=\faExclamationTriangle\ Attention, 
@@ -293,7 +284,6 @@
 \begin{tcolorbox}[colback=white, colframe=methode,
        right=3pt, bottom=5pt, 
        colbacktitle=white, coltitle=methode,
-       before=\beforespace, after=\afterspace,
        attach boxed title to top left={xshift=2mm, yshift=-3mm},
        boxed title style = {colframe=white},
        title=\faToolbox\ Méthode, 
@@ -320,4 +310,15 @@
 \end{tcolorbox}
 }
 
+\newenvironment{experience}
+{
+\begin{tcolorbox}[colback=white, colframe=methode,
+       right=3pt, bottom=5pt, 
+       colbacktitle=methode, coltitle=white,
+       title=\faMicroscope\ Activité expérimentale, toprule=1mm, bottomrule=1mm,
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
 

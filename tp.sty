@@ -34,11 +34,12 @@
 \definecolor{objectif}{HTML}{0077BB}
 \definecolor{prepa}{HTML}{BBBBBB}
 \definecolor{methode}{HTML}{009988}
+\definecolor{rappel}{HTML}{BBBBBB}
 
 % Space
 \newcommand{\beforespace}{\vspace{0pt}}
 \newcommand{\afterspace}{\vspace{0pt}}
-
+\newcommand{\imp}[1]{{\bfseries \color{methode} #1}}
 
 % --------------------------------------------
 % tccolorbox
@@ -77,7 +78,7 @@
 {\thesection. }
 {10pt}
 {}
-\titlespacing{\section}{0pt}{5pt plus 2pt minus 2pt}{3pt plus 1.5pt minus 0.25pt}
+\titlespacing{\section}{0pt}{1pt plus 0.5pt minus 0.5pt}{1pt plus 1.5pt minus 0.25pt}
 
 % Subsection
 \renewcommand{\thesubsection}{\arabic{subsection}}
@@ -153,4 +154,38 @@
 {
 \end{tcolorbox}
 }
+
+% Rappel
+\newenvironment{rappel}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=rappel!20,
+       colbacktitle=rappel!20,
+       title=\faFileUpload\ Rappel, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ },
+       borderline east= {2pt}{1pt}{rappel},
+       borderline west= {2pt}{1pt}{rappel}
+       ] 
+}
+{
+\end{tcolorbox}
+}
+
+% Coeur
+\newenvironment{coeur}
+{
+\begin{tcolorbox}[colback=white, colframe=methode,
+       right=3pt, bottom=5pt, colbacktitle=white, coltitle=methode,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faHeart\ À retenir, fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
 

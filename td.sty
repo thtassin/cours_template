@@ -99,11 +99,39 @@
 
 % Section
 \renewcommand{\thesection}{\arabic{section}}
-\titleformat{\section}[block] 
-{\large \selectfont \bfseries}
-{Exercice~\thesection : }
+\titleformat{\section}[frame] 
+{\LARGE \selectfont \bfseries}
+{\thesection : }
 {10pt}
 {}
-\titlespacing{\section}{0pt}{15pt plus 2pt minus 2pt}{3pt plus 1.5pt minus 0.25pt}
+\titlespacing{\section}{0pt}{11pt plus 4pt minus 2pt}{5pt plus 2pt minus 2pt}
 
+\newcommand{\stitle}{}
+
+\newcommand{\training}{
+\renewcommand{\stitle}{Entraînement}
+\setcounter{subsection}{0}
+}
+
+\newcommand{\prepare}{
+\renewcommand{\stitle}{Exercice}
+\setcounter{subsection}{0}
+}
+
+% subsection
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\titleformat{\subsection}[block] 
+{\Large \selectfont \bfseries}
+{\stitle~\thesubsection : }
+{10pt}
+{}
+\titlespacing{\subsection}{0pt}{8pt plus 3pt minus 2pt}{2pt plus 1pt minus 1pt}
+
+\renewcommand{\thesubsubsection}{\alpha{subsubsection}}
+\titleformat{\subsubsection}[runin] 
+{\selectfont \bfseries}
+{\thesubsubsection}
+{10pt}
+{}
+\titlespacing{\subsubsection}{0pt}{5pt plus 3pt minus 2pt}{1pt plus 1pt minus 1pt}
 
