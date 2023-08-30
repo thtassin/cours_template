@@ -50,21 +50,22 @@
 % Blank
 % -------------------------------------
 \newcommand{\correction}[1]{
-\begin{tcolorbox}[  
-       enhanced, frame hidden,
-       interior hidden, 
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
        coltitle=black,
-       title=Correction , 
+       colback=black!10,
+       colbacktitle=black!10,
+       title=Correction, 
        fonttitle=\bfseries,
-       borderline west=
-       {2pt}{1pt}{black}
-       ] 
+       attach title to upper={\ --- \ }, 
+       width=\linewidth, left=0mm, right=0mm]
 #1
 \end{tcolorbox}
 }
 
 \if@student
 \renewcommand{\correction}[1]{}
+\tcbset{lowerbox=ignored}
 \fi
 
 % --------------------------------------------
@@ -72,7 +73,7 @@
 % --------------------------------------------
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
-\tcbset{skin=enhanced, breakable=true, parbox=false}
+\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=5pt}
 
 \def\author{}
 \def\group{}
@@ -99,12 +100,14 @@
 
 % Section
 \renewcommand{\thesection}{\arabic{section}}
-\titleformat{\section}[frame] 
+\titleformat{\section}[block] 
 {\LARGE \selectfont \bfseries}
 {\thesection : }
-{10pt}
+{\baselineskip}
 {}
-\titlespacing{\section}{0pt}{11pt plus 4pt minus 2pt}{5pt plus 2pt minus 2pt}
+[\hrule\vspace{2pt}\hrule\vspace{0\baselineskip}]
+
+\titlespacing{\section}{0pt}{8pt plus 2pt minus 2pt}{4pt plus 1pt minus 1pt}
 
 \newcommand{\stitle}{}
 
@@ -122,10 +125,10 @@
 \renewcommand{\thesubsection}{\arabic{subsection}}
 \titleformat{\subsection}[block] 
 {\Large \selectfont \bfseries}
-{\stitle~\thesubsection : }
+{\thesubsection.}
 {10pt}
 {}
-\titlespacing{\subsection}{0pt}{8pt plus 3pt minus 2pt}{2pt plus 1pt minus 1pt}
+\titlespacing{\subsection}{0pt}{5pt plus 1pt minus 1pt}{2pt plus 1pt minus 1pt}
 
 \renewcommand{\thesubsubsection}{\alpha{subsubsection}}
 \titleformat{\subsubsection}[runin] 
@@ -134,4 +137,58 @@
 {10pt}
 {}
 \titlespacing{\subsubsection}{0pt}{5pt plus 3pt minus 2pt}{1pt plus 1pt minus 1pt}
+
+% -----------------------------
+% tolcolorbox
+% -----------------------------
+\newcommand{\reponse}{}
+\newenvironment{VF}[1]
+{
+\renewcommand{\reponse}{#1}
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, coltitle=black,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faCheckSquare \ Vrai ou Faux, fonttitle=\bfseries]
+}
+{
+\tcblower
+\textbf{Correction : } \reponse
+\end{tcolorbox}
+}
+
+\newenvironment{train}[1]
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       colbacktitle=white,
+       title=#1, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ }, 
+       width=\linewidth, left=0mm, right=0mm]
+}
+{
+\end{tcolorbox}
+}
+
+\newcounter{exercice}[chapter]
+
+\newenvironment{exercice}[1]
+{
+\refstepcounter{exercice}
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       colbacktitle=white,
+       title=\theexercice.~#1, 
+       fonttitle=\bfseries \large,
+       width=\linewidth, left=0mm, right=0mm]
+}
+{
+\end{tcolorbox}
+}
 
