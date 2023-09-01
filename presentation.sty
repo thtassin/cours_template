@@ -1,31 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{cours}
-\RequirePackage{titlesec, titletoc}
+\ProvidesPackage{presentation}
 \RequirePackage{graphicx}
 \RequirePackage{fontawesome5}
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
+\RequirePackage{esvect}
 \RequirePackage{notation}
-\RequirePackage[french]{babel}
-\RequirePackage[table,svgnames]{xcolor}
-\RequirePackage{amsmath,amssymb}
 \RequirePackage[skins]{tcolorbox}
 \RequirePackage{ifthen}
-\RequirePackage{hyperref}
 \RequirePackage{comment}
 \RequirePackage{pdfcol}
 \RequirePackage{framed}
-\RequirePackage[squaren,Gray,cdot, load=addn]{SIunits}
-\RequirePackage{fleqn}
-\RequirePackage[a4paper,hmargin=0.5cm,vmargin=0.5cm, landscape, twocolumn]{geometry}
-\RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
-		labelfont=bf]{caption}
-\RequirePackage{palatino}
-\RequirePackage{pxfonts}
-\RequirePackage{enumitem}
-\RequirePackage{booktabs}
 \RequirePackage{multirow}
-\RequirePackage{xcolor}
 
 % ---------------------------------------------------
 % Couleur
@@ -55,8 +39,6 @@
 % --------------------------------------------
 % Divers commandes
 % --------------------------------------------
-\graphicspath{image/}
-\renewcommand{\FrenchLabelItem}{\textbullet}
 \setlength{\parindent}{0pt}
 \newcommand{\condition}{}
 \newcommand{\tSquare}{\textcolor{test}{\faSquare}\ }
@@ -66,22 +48,15 @@
 % Blank
 % -------------------------------------
 \newcommand{\blank}[1]{#1}
-\if@student
-\renewcommand{\blank}[1]{}
-\fi
 
 \newcommand{\blankspace}[1]{#1}
-\if@student
-\renewcommand{\blankspace}[1]{{\Large 
-\textcolor{white}{#1}}}
-\fi
 
 % -------------------------------------
 % Compteur
 % -------------------------------------
-\newcounter{application}[chapter]
-\newcounter{test}[chapter]
-\newcounter{tableau}[chapter]
+\newcounter{application}
+\newcounter{test}
+\newcounter{tableau}
 
 % --------------------------------------------
 % tccolorbox
@@ -89,57 +64,6 @@
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
 \tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=9pt}
-
-\def\author{}
-\def\group{}
-\RequirePackage{fancyhdr}
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
-{\nouppercase{\bfseries\leftmark}}}
-\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
-\fancyfoot{}
-\fancyfoot[LE,RO]{\itshape\group}
-\pagestyle{fancyplain}
-
-% -------------------------------------------------------
-% Chapter, Section, ...
-% -------------------------------------------------------
-% Chapter
-\renewcommand{\thechapter}{\Roman{chapter}}
-\titleformat{\chapter}[block] 
-    {\huge \selectfont \bfseries \color{chapter}}
-    {\chaptertitlename\ \thechapter :}
-    {20pt}
-    {}
-    [\vspace{12pt}]
-\titlespacing{\chapter}{0pt}{3pt plus 2pt minus 2pt}{5pt plus 1.5pt minus 0.25pt}
-
-% Section
-\renewcommand{\thesection}{\arabic{section}}
-\titleformat{\section}[block] 
-{\LARGE \selectfont \bfseries}
-{\thesection.}
-{8pt}
-{}
-\titlespacing{\section}{0pt}{3pt plus 2pt minus 2pt}{3pt plus 1pt minus 1pt}
-
-% Subsection
-\renewcommand{\thesubsection}{\arabic{subsection}}
-\titleformat{\subsection}[hang] 
-{\Large \selectfont \bfseries}
-{\thesection.\thesubsection.}
-{8pt}
-{}
-\titlespacing{\subsection}{0pt}{3pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
-
-% Subsubsection
-\setcounter{secnumdepth}{5}
-\renewcommand{\thesubsubsection}{\alph{subsubsection}}
-\titleformat{\subsubsection}[hang] 
-{\large \selectfont \bfseries}
-{\thesection.\thesubsection.\thesubsubsection}
-{10pt}
-{}
-\titlespacing{\subsubsection}{0pt}{2pt plus 2pt minus 2pt}{2pt plus 1.5pt minus 0.25pt}
 
 % -----------------------------------
 % Environnements
@@ -205,7 +129,7 @@
 
 \newenvironment{application}
 {
-	\refstepcounter{application}
+\refstepcounter{application}
 \begin{tcolorbox}[  
        enhanced, frame hidden,
        interior hidden, 
