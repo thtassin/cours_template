@@ -43,6 +43,7 @@
 
 % Space
 \newcommand{\imp}[1]{{\bfseries \color{definition} #1}}
+\newcommand{\todo}[1]{{\bfseries \color{red} [TODO:#1]}}
 
 % --------------------------------------
 % Options
@@ -338,5 +339,49 @@
 }
 {
 \end{tcolorbox}
+}
+
+% --------------------------------
+% Devoir
+% --------------------------------
+\newcounter{pastyear}
+\newcounter{newyear}
+\setcounter{pastyear}{\the\year}
+\setcounter{newyear}{\the\year}
+\addtocounter{pastyear}{-1}
+\addtocounter{newyear}{1}
+\def\type{}
+\def\lieu{}
+\def\title{}
+\def\classe{}
+\newcommand{\devoir}[3]
+{
+	%1 Titre %2 Data %3 Durée
+	\thispagestyle{plain}
+\begin{minipage}[t]{0.3\linewidth}
+	Année \the\year--\thenewyear \\
+	\lieu \\
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.1\linewidth}
+\begin{flushleft}
+	{\bfseries \classe} \\
+\end{flushleft}
+\end{minipage}
+\vspace{0.2cm}
+\hrule height 0.3mm
+\begin{center}
+	{\type} \\[2mm]
+{\LARGE \bfseries #1} \\[2mm]
+#2 -- #3 
+\end{center}
+
+\hrule height 0.3mm
+\vspace{0.2cm}
+
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\type}}}
+\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
 }
 

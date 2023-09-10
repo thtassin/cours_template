@@ -47,9 +47,11 @@
 % -------------------------------------
 % Blank
 % -------------------------------------
-\newcommand{\blank}[1]{#1}
+\newcommand{\blank}[1]{{\bfseries #1}}
+\renewcommand{\blank}[1]{{\textcolor{orange}{#1}}}
 
-\newcommand{\blankspace}[1]{#1}
+\newcommand{\blankspace}[1]{{\bfseries #1}}
+\renewcommand{\blankspace}[1]{{\textcolor{orange}{#1}}}
 
 % -------------------------------------
 % Compteur
