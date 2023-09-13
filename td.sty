@@ -50,15 +50,15 @@
 % Blank
 % -------------------------------------
 \newcommand{\correction}[1]{
-\begin{tcolorbox}[enhanced, frame hidden,
-       %interior hidden, 
+\begin{tcolorbox}[enhanced, breakable, frame hidden,
        coltitle=black,
        colback=black!10,
        colbacktitle=black!10,
        title=Correction, 
        fonttitle=\bfseries,
        attach title to upper={\ --- \ }, 
-       width=\linewidth, left=0mm, right=0mm]
+       width=\linewidth, left=0mm, right=0mm, 
+       ]
 #1
 \end{tcolorbox}
 }
