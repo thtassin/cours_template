@@ -1,0 +1,177 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{oraux}
+\RequirePackage{titlesec, titletoc}
+\RequirePackage{graphicx}
+\RequirePackage{fontawesome5}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[french]{babel}
+\RequirePackage{notation}
+\RequirePackage[table,svgnames]{xcolor}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage[skins]{tcolorbox}
+\RequirePackage{ifthen}
+\RequirePackage{hyperref}
+\RequirePackage{comment}
+\RequirePackage{pdfcol}
+\RequirePackage{framed}
+\RequirePackage{fleqn}
+\RequirePackage{fleqn}
+\RequirePackage[a4paper,hmargin=0.5cm,vmargin=1.5cm, landscape, twocolumn]{geometry}
+\RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
+		labelfont=bf]{caption}
+%\RequirePackage[squaren,Gray,cdot, load=addn]{SIunits}
+\RequirePackage{palatino}
+\RequirePackage{pxfonts}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{xcolor}
+
+% ---------------------------------------------------
+% Couleur
+% ---------------------------------------------------
+\definecolor{chapter}{HTML}{009988}
+
+% Space
+\newcommand{\beforespace}{\vspace{0pt}}
+\newcommand{\afterspace}{\vspace{0pt}}
+\newcommand{\todo}[1]{{\bfseries \color{red} [TODO:#1]}}
+% --------------------------------------
+% Options
+% -------------------------------------
+\newif\if@student
+\DeclareOption{student}{\@studenttrue}
+
+\ProcessOptions
+
+\setlength{\parindent}{0pt}
+
+% -------------------------------------
+% Blank
+% -------------------------------------
+\newcommand{\correction}[1]{
+\begin{tcolorbox}[enhanced, breakable, 
+       frame hidden,
+       coltitle=black,
+       colback=black!10,
+       colbacktitle=black!10,
+       title=Correction, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ }, 
+       width=\linewidth, left=0mm, right=0mm, 
+       ]
+#1
+\end{tcolorbox}
+}
+
+\if@student
+\renewcommand{\correction}[1]{}
+\tcbset{lowerbox=ignored}
+\fi
+
+% --------------------------------------------
+% tccolorbox
+% --------------------------------------------
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
+\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=5pt}
+
+\def\author{}
+\def\group{}
+\RequirePackage{fancyhdr}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries\leftmark}}}
+\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\itshape\group}
+\pagestyle{fancyplain}
+
+% -------------------------------------------------------
+% Chapter, Section, ...
+% -------------------------------------------------------
+% Chapter
+\renewcommand{\thechapter}{\Roman{chapter}}
+\titleformat{\chapter}[block] 
+    {\huge \selectfont \bfseries \color{chapter}}
+    {\faSearch\ TD~\thechapter :}
+    {12pt}
+    {}
+    [\vspace{12pt}]
+\titlespacing{\chapter}{0pt}{3pt plus 2pt minus 2pt}{5pt plus 1.5pt minus 0.25pt}
+
+% Section
+\renewcommand{\thesection}{\arabic{section}}
+\titleformat{\section}[block] 
+{\LARGE \selectfont \bfseries}
+{\thesection.}
+{\baselineskip}
+{}
+[]
+
+\titlespacing{\section}{0pt}{8pt plus 2pt minus 2pt}{4pt plus 1pt minus 1pt}
+
+\newcommand{\stitle}{}
+
+\newcommand{\training}{
+\renewcommand{\stitle}{Entraînement}
+\setcounter{subsection}{0}
+}
+
+\newcommand{\prepare}{
+\renewcommand{\stitle}{Exercice}
+\setcounter{subsection}{0}
+}
+
+% subsection
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\titleformat{\subsection}[block] 
+{\Large \selectfont \bfseries}
+{\thesubsection.}
+{10pt}
+{}
+\titlespacing{\subsection}{0pt}{5pt plus 1pt minus 1pt}{2pt plus 1pt minus 1pt}
+
+\renewcommand{\thesubsubsection}{\alpha{subsubsection}}
+\titleformat{\subsubsection}[runin] 
+{\selectfont \bfseries}
+{\thesubsubsection}
+{10pt}
+{}
+\titlespacing{\subsubsection}{0pt}{5pt plus 3pt minus 2pt}{1pt plus 1pt minus 1pt}
+
+% -----------------------------
+% tolcolorbox
+% -----------------------------
+\newcommand{\reponse}{}
+
+\newcounter{exercice}
+
+\newenvironment{exercice}
+{
+\refstepcounter{exercice}
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       width=\linewidth, left=0mm, right=0mm]
+       {\Large{\textbf{\theexercice}}}.
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{probleme}
+{
+\refstepcounter{exercice}
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       width=\linewidth, left=0mm, right=0mm]
+       {\faCogs~\Large{\textbf{\theexercice}}}.
+}
+{
+\end{tcolorbox}
+}
+
