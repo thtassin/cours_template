@@ -45,6 +45,15 @@
 \newcommand{\beforespace}{\vspace{0pt}}
 \newcommand{\afterspace}{\vspace{0pt}}
 
+\newcounter{myrepeatcount}
+\newcommand{\myrepeat}[1]{
+\begingroup% ???
+    \setcounter{myrepeatcount}{1}    
+    \@whilenum\themyrepeatcount<#1\do{\faCanadianMapleLeaf \addtocounter{myrepeatcount}{1}}
+    \faCanadianMapleLeaf
+\endgroup
+}
+
 % --------------------------------------
 % Options
 % -------------------------------------
@@ -55,15 +64,6 @@
 
 \setlength{\parindent}{0pt}
 
-\makeatletter
-\newcounter{myrepeatcount}
-\newcommand{\myrepeat}[1]{% new command with 2 arguments
-    \begingroup% ???
-    \setcounter{myrepeatcount}{1}% initialize at 1, so that there are argument - 1 iterations and the last iterations doesn't have a separator following it
-    \@whilenum\themyrepeatcount<#1\do{\faCanadianMapleLeaf \addtocounter{myrepeatcount}{1}}\faCanadianMapleLeaf
-    \endgroup
-}
-\makeatother
 
 % -------------------------------------
 % Blank
