@@ -1,0 +1,65 @@
+\documentclass{book}
+\usepackage[]{cours}
+\usepackage{lipsum}
+
+\begin{document}
+
+\chapter{Exemple de cours}
+
+\section{Présentation des environnements}
+L'option \texttt{student} n'est pas activée lors de la compilation de ce document.
+Elle permet de créer un texte à trou à l'aide de la commande
+\texttt{blank}. Dans ce texte, il \blank{manque} un mot lorsque \texttt{student}
+est activée.
+\subsection{Définition}
+\begin{defn}
+	Cette environnement permet de mettre en valeur les défintions 
+	apparaissant dans le cours. La couleur de l'arrière plan peut-être
+	modifiée via \texttt{theme.sty}
+\end{defn}
+
+\subsection{Attention}
+Il est parfois important de mettre en avant certains subtilités.
+\begin{attention}
+	\lipsum[1]
+\end{attention}
+
+\subsection{Application}
+Il est parfois utile de faire une application.
+\begin{application}
+	\lipsum[1]
+\end{application}
+
+\subsection{Remarque}
+Enfin quelques remarques sont toujours les bienvenues.
+\begin{rema}
+	Ceci est une remarque.
+\end{rema}
+
+\subsection{Au tableau}
+\begin{tableau}
+ \lipsum[2].
+\end{tableau}
+
+\subsection{Équation}
+\begin{eqn}{Équation de Navier-Stokes}
+ \lipsum[2].
+\end{eqn}
+
+\subsection{Méthode}
+\begin{methode}
+ \lipsum[2].
+\end{methode}
+
+\subsection{Théorème}
+\begin{theoreme}{Théorème de Pythagore}
+ \lipsum[2].
+\end{theoreme}
+
+\section{Une deuxième section}
+\section{Une troisième section}
+
+\chapter{Un autre chapitre}
+
+\section{Avec une autre section}
+\end{document}

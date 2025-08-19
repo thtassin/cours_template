@@ -1,0 +1,233 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cours}
+\RequirePackage{titlesec, titletoc}
+\RequirePackage{graphicx}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{siunitx}
+\RequirePackage[french]{babel}
+\RequirePackage[table,svgnames]{xcolor}
+\RequirePackage{ifthen}
+\RequirePackage{notation}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{hyperref}
+\RequirePackage{comment}
+\RequirePackage{pdfcol}
+\RequirePackage{framed}
+\RequirePackage{fontawesome5}
+\RequirePackage[sectionbib]{bibunits}
+\RequirePackage{natbib}
+\RequirePackage{fleqn}
+\RequirePackage[a4paper,hmargin=1cm,vmargin=1cm]{geometry}
+\RequirePackage{palatino}
+\RequirePackage{tcolorbox}
+\RequirePackage{natbib}
+\RequirePackage{pxfonts}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{esvect}
+\RequirePackage{notation}
+\RequirePackage{tikz}
+\RequirePackage{chemist}
+\usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,angles,quotes}
+\tikzset{>=latex}
+\RequirePackage[european,straightvoltages, RPvoltages, siunitx]{circuitikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{optics}
+
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
+\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=5pt}
+
+% --------------------------------------
+% Options
+% -------------------------------------
+\newif\if@student
+\DeclareOption{student}{\@studenttrue}
+
+\ProcessOptions
+
+\setlength{\parindent}{0pt}
+
+% -------------------------------------------------------
+% Chapter, Section, ...
+% -------------------------------------------------------
+% Chapter
+\titleformat{\chapter}[display] 
+    {\huge \selectfont \bfseries}
+    {\chaptertitlename\ \thechapter
+    }
+    %{\chaptertitlename\}% \thechapter}
+    {20pt}
+    {\Huge}
+
+ \titleformat{name=\chapter,numberless}[display] 
+    {\huge \selectfont \bfseries}
+    {}
+    %{\chaptertitlename\}% \thechapter}
+    {20pt}
+    {\Huge}
+\renewcommand{\thechapter}{\Roman{chapter}}
+
+% Section
+\renewcommand{\thesection}{\arabic{section}}
+\titleformat{\section}[block] 
+{\LARGE \selectfont \bfseries}
+{\thesection.}
+{12pt}
+{}
+
+% Subsection
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\titleformat{\subsection}[hang] 
+{\Large \selectfont \bfseries}
+{\thesection.\thesubsection.}
+{12pt}
+{}
+
+% Subsubsection
+\setcounter{secnumdepth}{5}
+\renewcommand{\thesubsubsection}{\alph{subsubsection}}
+\titleformat{\subsubsection}[hang] 
+{\large \selectfont \bfseries}
+{\thesection.\thesubsection.\thesubsubsection}
+{12pt}
+{}
+
+\newenvironment{question}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       colbacktitle=white,
+       title=Question de cours, 
+       fonttitle=\bfseries \large,
+       width=\linewidth, left=0mm, right=0mm]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{exercice}[1]
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       colbacktitle=white,
+       title=#1, 
+       fonttitle=\bfseries \large,
+       width=\linewidth, left=0mm, right=0mm]
+}
+{
+\end{tcolorbox}
+}
+
+\newcommand{\correction}[1]{
+\begin{tcolorbox}[enhanced, breakable, frame hidden,
+       coltitle=black,
+       colback=black!10,
+       colbacktitle=black!10,
+       title=Correction, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ }, 
+       width=\linewidth, left=0mm, right=0mm, 
+       ]
+#1
+\end{tcolorbox}
+}
+
+\if@student
+\renewcommand{\correction}[1]{}
+\tcbset{lowerbox=ignored}
+\fi
+
+\newcommand{\note}{
+\begin{center}
+\begin{tabular}{lccccc}
+	\toprule
+	& \faBatteryEmpty & \faBatteryQuarter & \faBatteryHalf & 
+	\faBatteryThreeQuarters & \faBatteryFull\\
+	\midrule
+	Connaissance et maîtrise du cours & & & & & \\[1em]
+	Amorcer un problème & & & & &  \\[1em]
+	Établir une stratégie de résolution & & & &  \\[1em]
+	Calculs et application numérique & & & &  \\[1em]
+	Qualité de la présentation & & & & &  \\[1em]
+	\bottomrule
+\end{tabular}
+\end{center}
+\begin{minipage}{0.45\linewidth}
+\textbf{Commentaires}
+\vspace{2cm}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+\textbf{Note}
+\vspace{2cm}
+\end{minipage}
+}
+
+\renewcommand{\FrenchLabelItem}{\textbullet}
+
+
+\newenvironment{rema}[3]
+{
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, 
+	attach boxed title to top left={xshift=2mm, yshift=-4mm},
+       boxed title style = {colframe=white},
+       coltitle=black,
+       title=#1 : \hfill #2/#3, toprule=1mm, bottomrule=1mm,
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{probleme}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       width=\linewidth, left=0mm, right=0mm]
+       {\faCogs~}
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{data}
+{
+\begin{tcolorbox}[colback=white, colframe=white,right=3pt]
+\textbf{Données : }
+}
+{
+\end{tcolorbox}
+}
+
+\newcommand{\condition}{}
+\newenvironment{doc}[2][]
+{
+\ifthenelse{\equal{#1}{}}
+	{\tcbset{lowerbox=ignored}}
+	{
+	\tcbset{lowerbox=visible}
+	\renewcommand{\condition}{#1}
+	}
+
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, coltitle=black,
+       title=#2, fonttitle=\bfseries]
+}
+{
+\tcblower
+\condition
+\end{tcolorbox}
+}
+

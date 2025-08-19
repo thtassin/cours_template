@@ -1,0 +1,141 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cours}
+\RequirePackage{titlesec, titletoc}
+\RequirePackage{graphicx}
+\RequirePackage{fontawesome5}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{notation}
+\RequirePackage[french]{babel}
+\RequirePackage[table,svgnames]{xcolor}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage[skins]{tcolorbox}
+\RequirePackage{ifthen}
+\RequirePackage{hyperref}
+\RequirePackage{comment}
+\RequirePackage{pdfcol}
+\RequirePackage{framed}
+\RequirePackage{fleqn}
+\RequirePackage[hmargin=2cm,vmargin=2cm]{geometry}
+\RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
+		labelfont=bf]{caption}
+\RequirePackage{palatino}
+\RequirePackage{pxfonts}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage[locale=FR]{siunitx}
+\RequirePackage{xcolor}
+\RequirePackage{fancyhdr}
+\RequirePackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,angles,quotes}
+\tikzset{>=latex}
+\RequirePackage[european,straightvoltages, RPvoltages, siunitx]{circuitikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{optics}
+
+
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\nouppercase{\bfseries\leftmark}}}
+\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
+\pagestyle{fancyplain}
+\fancyfoot{}
+
+\renewcommand{\FrenchLabelItem}{\textbullet}
+% -------------------------------------------------------
+% Chapter, Section, ...
+% -------------------------------------------------------
+% Chapter
+\renewcommand{\thechapter}{\Roman{chapter}}
+\titleformat{\chapter}[block] 
+    {\huge \selectfont \bfseries \color{chapter}}
+    {\chaptertitlename\ \thechapter :}
+    {20pt}
+    {}
+    [\vspace{12pt}]
+\titlespacing{\chapter}{0pt}{3pt plus 2pt minus 2pt}{5pt plus 1.5pt minus 0.25pt}
+
+\renewcommand{\thesection}{\arabic{section}}
+\titleformat{\section}[block] 
+{\LARGE \selectfont \bfseries}
+{\thesection.}
+{12pt}
+{}
+
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\titleformat{\subsection}[hang] 
+{\Large \selectfont \bfseries}
+{\thesubsection.}
+{12pt}
+{}
+
+\setcounter{secnumdepth}{4}
+\renewcommand{\thesubsubsection}{\alph{subsubsection}}
+\titleformat{\subsubsection}[block] 
+{\large \selectfont \bfseries}
+{\thesubsection.\thesubsubsection}
+{12pt}
+{}
+
+\newcounter{pastyear}
+\newcounter{newyear}
+\setcounter{pastyear}{\the\year}
+\setcounter{newyear}{\the\year}
+\addtocounter{pastyear}{0}
+\addtocounter{newyear}{1}
+\def\type{}
+\def\lieu{}
+\def\title{}
+\def\classe{}
+\newcommand{\devoir}[3]
+{
+	%1 Titre %2 Data %3 Durée
+	\thispagestyle{plain}
+\begin{minipage}[t]{0.3\linewidth}
+	Année \thepastyear--\thenewyear \\
+	\lieu \\
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.1\linewidth}
+\begin{flushleft}
+	{\bfseries \classe} \\
+\end{flushleft}
+\end{minipage}
+\vspace{0.2cm}
+\hrule height 0.3mm
+\begin{center}
+	{\type} \\[2mm]
+{\LARGE \bfseries #1} \\[2mm]
+#2 -- #3 
+\end{center}
+
+\hrule height 0.3mm
+\vspace{0.2cm}
+}
+\newcommand{\helptikz}{
+\draw[style=help lines,gray!50] (-2cm,-2cm) grid[step=0.5cm] (2cm,2cm);}
+
+
+\newenvironment{data}
+{
+\begin{tcolorbox}[colback=white, colframe=white,right=3pt]
+\textbf{Données : }
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{note}
+{
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, 
+	attach boxed title to top left={xshift=2mm, yshift=-4mm},
+       boxed title style = {colframe=white},
+       coltitle=black,
+       title=Note, toprule=1mm, bottomrule=1mm,
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+

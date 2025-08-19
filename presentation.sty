@@ -1,35 +1,19 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{cours}
-\RequirePackage{titlesec, titletoc}
+\ProvidesPackage{presentation}
 \RequirePackage{graphicx}
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
-\RequirePackage[french]{babel}
-\RequirePackage[table,svgnames]{xcolor}
-\RequirePackage{amsmath,amssymb}
+\RequirePackage{fontawesome5}
 \RequirePackage{esvect}
+\RequirePackage{esint}
 \RequirePackage{notation}
-\RequirePackage{pxfonts}
 \RequirePackage[skins]{tcolorbox}
 \RequirePackage{ifthen}
-\RequirePackage{hyperref}
 \RequirePackage{comment}
 \RequirePackage{pdfcol}
 \RequirePackage{framed}
-\RequirePackage{fleqn}
-\RequirePackage{pgfplots}
-\RequirePackage{fontawesome5}
-\RequirePackage{tkz-euclide}
-\RequirePackage[a4paper,hmargin=0.5cm,vmargin=0.5cm, landscape, twocolumn]{geometry}
-\RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
-		labelfont=bf]{caption}
-\RequirePackage{palatino}
-\RequirePackage{enumitem}
-\RequirePackage{booktabs}
 \RequirePackage{multirow}
-\RequirePackage[locale=FR]{siunitx}
-\RequirePackage{xcolor}
+
 \RequirePackage{pgfplots}
+\RequirePackage[locale=FR]{siunitx}
 \RequirePackage{tikz}
 \usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,angles,quotes}
 \tikzset{>=latex}
@@ -53,7 +37,6 @@
 
 % Space
 \newcommand{\imp}[1]{{\bfseries \color{definition} #1}}
-\newcommand{\todo}[1]{{\bfseries \color{red} [TODO:#1]}}
 
 % --------------------------------------
 % Options
@@ -66,8 +49,6 @@
 % --------------------------------------------
 % Divers commandes
 % --------------------------------------------
-\graphicspath{image/}
-\renewcommand{\FrenchLabelItem}{\textbullet}
 \setlength{\parindent}{0pt}
 \newcommand{\condition}{}
 \newcommand{\tSquare}{\textcolor{test}{\faSquare}\ }
@@ -76,23 +57,18 @@
 % -------------------------------------
 % Blank
 % -------------------------------------
-\newcommand{\blank}[1]{#1}
-\if@student
-\renewcommand{\blank}[1]{}
-\fi
+\newcommand{\blank}[1]{{\bfseries #1}}
+\renewcommand{\blank}[1]{{\Large \textcolor{attention}{#1}}}
 
-\newcommand{\blankspace}[1]{#1}
-\if@student
-\renewcommand{\blankspace}[1]{{\Large 
-\textcolor{white}{#1}}}
-\fi
+\newcommand{\blankspace}[1]{{\bfseries #1}}
+\renewcommand{\blankspace}[1]{{\Large \textcolor{attention}{#1}}}
 
 % -------------------------------------
 % Compteur
 % -------------------------------------
-\newcounter{application}[chapter]
-\newcounter{test}[chapter]
-\newcounter{tableau}[chapter]
+\newcounter{application}
+\newcounter{test}
+\newcounter{tableau}
 
 % --------------------------------------------
 % tccolorbox
@@ -101,58 +77,6 @@
 \tcbuselibrary{skins}
 \tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=9pt}
 
-\def\author{}
-\def\group{}
-\RequirePackage{fancyhdr}
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
-{\nouppercase{\bfseries\leftmark}}}
-\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
-\fancyfoot{}
-\fancyfoot[LE,RO]{\itshape\group}
-\pagestyle{fancyplain}
-
-% -------------------------------------------------------
-% Chapter, Section, ...
-% -------------------------------------------------------
-% Chapter
-\renewcommand{\thechapter}{\Roman{chapter}}
-\titleformat{\chapter}[block] 
-    {\huge \selectfont \bfseries \color{chapter}}
-    {\chaptertitlename\ \thechapter :}
-    {20pt}
-    {}
-    [\vspace{12pt}]
-\titlespacing{\chapter}{0pt}{3pt plus 2pt minus 2pt}{5pt plus 1.5pt minus 0.25pt}
-
-% Section
-\renewcommand{\thesection}{\arabic{section}}
-\titleformat{\section}[block] 
-{\LARGE \selectfont \bfseries}
-{\thesection.}
-{8pt}
-{}
-\titlespacing{\section}{0pt}{12pt plus 2pt minus 2pt}{12pt plus 1pt minus 1pt}
-
-% Subsection
-\renewcommand{\thesubsection}{\arabic{subsection}}
-\titleformat{\subsection}[hang] 
-{\Large \selectfont \bfseries}
-{\thesection.\thesubsection.}
-{8pt}
-{}
-\titlespacing{\subsection}{0pt}{8pt plus 2pt minus 1pt}{8pt plus 1pt minus 1pt}
-
-% Subsubsection
-\setcounter{secnumdepth}{5}
-\renewcommand{\thesubsubsection}{\alph{subsubsection}}
-\titleformat{\subsubsection}[hang] 
-{\large \selectfont \bfseries}
-{\thesection.\thesubsection.\thesubsubsection}
-{10pt}
-{}
-\titlespacing{\subsubsection}{0pt}{2pt plus 2pt minus 2pt}{2pt plus 1.5pt minus 0.25pt}
-
-\newcommand{\remplir}{\dots\,\dots}
 % -----------------------------------
 % Environnements
 % -----------------------------------
@@ -165,24 +89,6 @@
        colback=rappel!20,
        colbacktitle=rappel!20,
        title=\faFileUpload\ Rappel, 
-       fonttitle=\bfseries,
-       attach title to upper={\ --- \ },
-       borderline east= {2pt}{1pt}{rappel},
-       borderline west= {2pt}{1pt}{rappel}
-       ] 
-}
-{
-\end{tcolorbox}
-}
-
-\newenvironment{exemple}
-{
-\begin{tcolorbox}[enhanced, frame hidden,
-       %interior hidden, 
-       coltitle=black,
-       colback=rappel!20,
-       colbacktitle=rappel!20,
-       title=\faSearchPlus\ Exemple, 
        fonttitle=\bfseries,
        attach title to upper={\ --- \ },
        borderline east= {2pt}{1pt}{rappel},
@@ -235,7 +141,7 @@
 
 \newenvironment{application}
 {
-	\refstepcounter{application}
+\refstepcounter{application}
 \begin{tcolorbox}[  
        enhanced, frame hidden,
        interior hidden, 
@@ -329,6 +235,22 @@
 \end{tcolorbox}
 }
 
+\newenvironment{test}
+{
+\refstepcounter{test}
+\begin{tcolorbox}[  
+       enhanced, frame hidden,
+       interior hidden, 
+       coltitle=test,
+       title=Test~\thetest, 
+       fonttitle=\bfseries,
+       borderline west=
+       {2pt}{1pt}{test}
+       ] 
+}
+{
+\end{tcolorbox}
+}
 
 \newenvironment{experience}
 {
@@ -354,6 +276,26 @@
 \end{tcolorbox}
 }
 
+\newenvironment{exemple}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=rappel!20,
+       colbacktitle=rappel!20,
+       title=\faSearchPlus\ Exemple, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ },
+       borderline east= {2pt}{1pt}{rappel},
+       borderline west= {2pt}{1pt}{rappel}
+       ] 
+}
+{
+\end{tcolorbox}
+}
+
+\newcommand{\remplir}{\dots\,\dots}
+
 \newenvironment{hp}
 {
 \begin{tcolorbox}[colback=white, colframe=black,
@@ -369,49 +311,23 @@
 \end{tcolorbox}
 }
 
-% --------------------------------
-% Devoir
-% --------------------------------
-\newcounter{pastyear}
-\newcounter{newyear}
-\setcounter{pastyear}{\the\year}
-\setcounter{newyear}{\the\year}
-\addtocounter{pastyear}{-1}
-\addtocounter{newyear}{1}
-\def\type{}
-\def\lieu{}
-\def\title{}
-\def\classe{}
-\newcommand{\devoir}[3]
+\newcounter{exercice}[section]
+
+\newenvironment{exercice}[1]
 {
-	%1 Titre %2 Data %3 Durée
-	\thispagestyle{plain}
-\begin{minipage}[t]{0.3\linewidth}
-	Année \the\year--\thenewyear \\
-	\lieu \\
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.1\linewidth}
-\begin{flushleft}
-	{\bfseries \classe} \\
-\end{flushleft}
-\end{minipage}
-\vspace{0.2cm}
-\hrule height 0.3mm
-\begin{center}
-	{\type} \\[2mm]
-{\LARGE \bfseries #1} \\[2mm]
-#2 -- #3 
-\end{center}
-
-\hrule height 0.3mm
-\vspace{0.2cm}
-
-\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
-{\nouppercase{\type}}}
-\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
-\fancyfoot{}
+\refstepcounter{exercice}
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       colbacktitle=white,
+       title=\theexercice.~#1, 
+       fonttitle=\bfseries \large,
+       width=\linewidth, left=0mm, right=0mm]
 }
-
+{
+\end{tcolorbox}
+}
 \newcommand{\helptikz}{
-\draw[style=help lines,gray!50] (-2cm,-2cm) grid[step=0.5cm] (2cm,2cm);}
+\draw[style=help lines,gray!50] (-7cm,-7cm) grid[step=0.5cm] (7cm,7cm);}
+

@@ -1,8 +1,9 @@
+\usepackage{esvect}
 %Operateur
 \newcommand{\mitbf}[1]{\hbox{\mathversion{bold}$#1$}}
 \renewcommand{\div}{\mathrm{div}\,}
-\newcommand{\rot}{\vec{\mathrm{{rot}}}\,}
-\newcommand{\grad}{\vec{\mathrm{grad}\,}}
+\newcommand{\rot}{\vv{\mathrm{{rot}}}\,}
+\newcommand{\grad}{\vv{\mathrm{grad}\,}}
 \newcommand{\dd}[2]{{\partial_{\kern-0.08em#1}}\kern0.05em#2}
 \newcommand{\ddd}[2]{\dfrac{\partial#2}{\partial#1}}
 \newcommand{\ddn}[2]{\dfrac{\mathrm{d}#2}{\mathrm{d}#1}}
@@ -13,26 +14,38 @@
 \newcommand{\comp}[1]{\underline{#1}}
 \renewcommand{\max}[1]{#1_{\textrm{max}}}
 \renewcommand{\min}[1]{#1_{\textrm{min}}}
-\renewcommand{\vec}[1]{\mathbf{#1}}
-\renewcommand{\vec}[1]{\vv{#1}}
-\newcommand{\vlaplacien}{\vec{\Delta}}
+\newcommand{\vlaplacien}{\vv{\Delta}}
 \newcommand{\jj}{\mathrm{j}}
 
+\newcommand{\rotn}{\vv{\nabla} \wedge}
+\newcommand{\divn}{\vv{\nabla} \cdot}
+\newcommand{\gradn}{\vv{\nabla}}
 % Repère
 \newcommand{\repere}{\mathcal{R}}
-\newcommand{\moment}{{\vec{\mathcal{M}}}}
-\newcommand{\omegaRR}{\vec{\Omega}_{\repere'/\repere}}
+\newcommand{\moment}{{\vv{\mathcal{M}}}}
+\newcommand{\omegaRR}{\vv{\Omega}_{\repere'/\repere}}
 
 % Vecteurs
-\newcommand{\er}{\vec{e_r}}
-\newcommand{\ez}{\vec{e_z}}
-\newcommand{\ex}{\vec{e_x}}
-\newcommand{\ey}{\vec{e_{y}}}
-\newcommand{\ezp}{\vec{e_{z'}}}
-\newcommand{\expr}{\vec{e_{x'}}}
-\newcommand{\eyp}{\vec{e_{y'}}}
-\newcommand{\etheta}{\vec{e_\theta}}
-\newcommand{\ephi}{\vec{e_\phi}}
+\newcommand{\er}{\vv{e_r}}
+\newcommand{\ez}{\vv{e_z}}
+\newcommand{\ex}{\vv{e_x}}
+\newcommand{\ey}{\vv{e_{y}}}
+\newcommand{\ur}{\vv{u_r}}
+\newcommand{\uz}{\vv{u_z}}
+\newcommand{\ux}{\vv{u_x}}
+\newcommand{\uy}{\vv{u_{y}}}
+\newcommand{\Uz}{\vv{U_z}}
+\newcommand{\Ux}{\vv{U_x}}
+\newcommand{\Uy}{\vv{U_{y}}}
+
+\newcommand{\utheta}{\vv{u_\theta}}
+\newcommand{\uphi}{\vv{u_\phi}}
+
+\newcommand{\ezp}{\vv{e_{z'}}}
+\newcommand{\expr}{\vv{e_{x'}}}
+\newcommand{\eyp}{\vv{e_{y'}}}
+\newcommand{\etheta}{\vv{e_\theta}}
+\newcommand{\ephi}{\vv{e_\phi}}
 
 % Differentiel
 \newcommand{\dV}{\,\mathrm{d}V}
@@ -41,13 +54,35 @@
 \newcommand{\dtheta}{\,\mathrm{d}\theta}
 \newcommand{\dphi}{\,\mathrm{d}\phi}
 \newcommand{\dr}{\,\mathrm{d}r}
-\newcommand{\drc}{\,\mathbf{d}^3\vec{r}}
+\newcommand{\drc}{\,\mathbf{d}^3\vv{r}}
 \newcommand{\dt}{\,\mathrm{d}t}
 \newcommand{\dx}{\,\mathrm{d}x}
 \newcommand{\dy}{\,\mathrm{d}y}
 \newcommand{\dz}{\,\mathrm{d}z}
-\newcommand{\dl}{\,\vec{\mathrm{d}\ell}}
+\newcommand{\dl}{\,\vv{\mathrm{d}\ell}}
 \newcommand{\dtau}{\mathrm{d}\tau}
 
 \newcommand{\ii}{\mathrm{i}}
 \newcommand{\expe}{\mathrm{e}}
+
+\newcommand{\vectikz}[3]{
+	\draw[fill=white] (#1, #2) node[below, yshift=-0.1cm]{#3} circle (4pt);
+	\draw[fill=black] (#1, #2) circle (2pt);
+}
+\newcommand{\vectikzc}[3]{
+	\draw[fill=white] (#1, #2) node[below, xshift=0.1cm, yshift=-0.1cm]{#3} circle (4pt);
+	\draw[thick] (#1,#2) -- ++ (2.5pt, 2.5pt);
+	\draw[thick] (#1,#2) -- ++ (-2.5pt, -2.5pt);
+	\draw[thick] (#1,#2) -- ++ (2.5pt, -2.5pt);
+	\draw[thick] (#1,#2) -- ++ (-2.5pt, 2.5pt);
+}
+
+\newcommand{\gradtikzv}[3]{
+	\draw (#1,#2) -- ++ (0, 0.1);
+	\draw (#1,#2) node[below]{#3} -- ++ (0, -0.1);
+}
+
+\newcommand{\gradtikzh}[3]{
+	\draw (#1,#2) -- ++ (-0.1, 0);
+	\draw (#1,#2) node[right]{#3} -- ++ (-0.1, 0);
+}

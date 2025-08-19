@@ -1,0 +1,251 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{td}
+\RequirePackage[explicit]{titlesec}
+\RequirePackage{titletoc}
+\RequirePackage{graphicx}
+\RequirePackage{fontawesome5}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[french]{babel}
+\RequirePackage{notation}
+\RequirePackage[table,svgnames]{xcolor}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage[skins]{tcolorbox}
+\RequirePackage{ifthen}
+\RequirePackage{hyperref}
+\RequirePackage{comment}
+\RequirePackage{pdfcol}
+\RequirePackage{framed}
+\RequirePackage{fleqn}
+\RequirePackage[locale=FR]{siunitx}
+\RequirePackage[a4paper,hmargin=0.5cm,vmargin=1.5cm, landscape, twocolumn]{geometry}
+\RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
+		labelfont=bf]{caption}
+\RequirePackage{palatino}
+\RequirePackage{pxfonts}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\RequirePackage{pgffor}
+\usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,angles,quotes}
+\tikzset{>=latex}
+\RequirePackage[european,straightvoltages, RPvoltages, siunitx]{circuitikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{optics}
+\RequirePackage{tkz-euclide}
+
+% ---------------------------------------------------
+% Couleur
+% ---------------------------------------------------
+\definecolor{chapter}{HTML}{009988}
+
+% Space
+\newcommand{\beforespace}{\vspace{0pt}}
+\newcommand{\afterspace}{\vspace{0pt}}
+
+% --------------------------------------
+% Options
+% -------------------------------------
+\newif\if@student
+\DeclareOption{student}{\@studenttrue}
+
+\ProcessOptions
+
+\setlength{\parindent}{0pt}
+
+\makeatletter
+\newcounter{myrepeatcount}
+\newcommand{\myrepeat}[1]{% new command with 2 arguments
+    \begingroup% ???
+    \setcounter{myrepeatcount}{1}% initialize at 1, so that there are argument - 1 iterations and the last iterations doesn't have a separator following it
+    \@whilenum\themyrepeatcount<#1\do{\faCanadianMapleLeaf \addtocounter{myrepeatcount}{1}}\faCanadianMapleLeaf
+    \endgroup
+}
+\makeatother
+
+% -------------------------------------
+% Blank
+% -------------------------------------
+\newcommand{\correction}[1]{
+\begin{tcolorbox}[enhanced, breakable, frame hidden,
+       coltitle=black,
+       colback=black!10,
+       colbacktitle=black!10,
+       title=Correction, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ }, 
+       width=\linewidth, left=0mm, right=0mm, 
+       ]
+#1
+\end{tcolorbox}
+}
+
+\if@student
+\renewcommand{\correction}[1]{}
+\tcbset{lowerbox=ignored}
+\fi
+
+% --------------------------------------------
+% tccolorbox
+% --------------------------------------------
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
+\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=9pt}
+
+\def\author{}
+\def\group{}
+\RequirePackage{fancyhdr}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries\leftmark}}}
+\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\itshape\group}
+\pagestyle{fancyplain}
+
+% -------------------------------------------------------
+% Chapter, Section, ...
+% -------------------------------------------------------
+% Chapter
+\renewcommand{\thechapter}{\Roman{chapter}}
+\titleformat{\chapter}[block] 
+    {\huge \selectfont \bfseries \color{chapter}}
+    {\faSearch\ TD~\thechapter : #1}
+    {12pt}
+    {}
+    [\vspace{12pt}]
+\titlespacing{\chapter}{0pt}{3pt plus 2pt minus 2pt}{5pt plus 1.5pt minus 0.25pt}
+
+\newcommand{\Myrule}{
+\tikz \fill[black!40, rounded corners=2pt] (0,0) rectangle (\columnwidth, 2mm);
+\vspace{-6mm plus 1mm minus 1mm}
+}
+
+% Section
+\renewcommand{\thesection}{\arabic{section}}
+
+\titleformat{\section}[block] 
+{\LARGE \selectfont \bfseries }
+{\thesection \\ \Myrule}
+{5pt}
+{}
+
+\titleformat{name=\section, numberless}[block] 
+{\LARGE \selectfont \bfseries }
+{#1 \\ \Myrule}
+{5pt}
+{}
+
+%[\hrule\vspace{2pt}\hrule\vspace{0\baselineskip}]
+
+%\titlespacing{\section}{0pt}{2pt plus 2pt minus 2pt}{2pt plus 1pt minus 1pt}
+
+\newcommand{\stitle}{}
+
+\newcommand{\training}{
+\renewcommand{\stitle}{Entraînement}
+\setcounter{subsection}{0}
+}
+
+\newcommand{\prepare}{
+\renewcommand{\stitle}{Exercice}
+\setcounter{subsection}{0}
+}
+
+% subsection
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\titleformat{\subsection}[block] 
+{\Large \selectfont \bfseries}
+{\thesubsection.}
+{10pt}
+{}
+\titlespacing{\subsection}{0pt}{5pt plus 1pt minus 1pt}{2pt plus 1pt minus 1pt}
+
+\renewcommand{\thesubsubsection}{\alpha{subsubsection}}
+\titleformat{\subsubsection}[runin] 
+{\selectfont \bfseries}
+{\thesubsubsection}
+{10pt}
+{}
+\titlespacing{\subsubsection}{0pt}{5pt plus 3pt minus 2pt}{1pt plus 1pt minus 1pt}
+
+% -----------------------------
+% tolcolorbox
+% -----------------------------
+\newcommand{\reponse}{}
+\newenvironment{VF}[1]
+{
+\renewcommand{\reponse}{#1}
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, coltitle=black,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faCheckSquare \ Vrai ou Faux, fonttitle=\bfseries]
+}
+{
+\tcblower
+\textbf{Correction : } \reponse
+\end{tcolorbox}
+}
+
+\newtcolorbox{train}[1]
+{enhanced, frame hidden, coltitle=black, colback=white,
+ colbacktitle=white,title=#1, fonttitle=\bfseries, 
+ attach title to upper={\ --- \ }, width=\linewidth, left=0mm, right=0mm
+}
+
+\newcounter{exercice}[chapter]
+
+\newenvironment{exercice}[2]
+{
+\refstepcounter{exercice}
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       colbacktitle=white,
+       title=\theexercice.~#1 \myrepeat{#2}, 
+       fonttitle=\bfseries \large,
+       width=\linewidth, left=0mm, right=0mm]
+}
+{
+\end{tcolorbox}
+}
+\newcommand{\helptikz}{
+\draw[style=help lines,gray!50] (-7cm,-7cm) grid[step=0.5cm] (7cm,7cm);}
+
+\newenvironment{rappel}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=black!20,
+       colbacktitle=black!20,
+       title=\faFileUpload\ Rappel, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ },
+       borderline east= {2pt}{1pt}{black},
+       borderline west= {2pt}{1pt}{black}
+       ] 
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{methode}[1]
+{
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, top=5pt, bottom=5pt, 
+       colbacktitle=white, coltitle=black,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faToolbox\ #1, 
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+

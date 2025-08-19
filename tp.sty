@@ -1,0 +1,314 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tp}
+\RequirePackage{titlesec, titletoc}
+\RequirePackage{graphicx}
+\RequirePackage{fontawesome5}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[french]{babel}
+\RequirePackage[table,svgnames]{xcolor}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage[skins]{tcolorbox}
+\RequirePackage{ifthen}
+\RequirePackage{hyperref}
+\RequirePackage{comment}
+\RequirePackage{pdfcol}
+\RequirePackage{framed}
+\RequirePackage{fleqn}
+\RequirePackage[a4paper,hmargin=0.5cm,vmargin=0.5cm, landscape, twocolumn]{geometry}
+\RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
+		labelfont=bf]{caption}
+\RequirePackage{palatino}
+\RequirePackage{pxfonts}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{xcolor}
+\RequirePackage{notation}
+\renewcommand{\FrenchLabelItem}{\textbullet}
+\RequirePackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,angles,quotes}
+\tikzset{>=latex}
+\RequirePackage[european,straightvoltages, RPvoltages, siunitx]{circuitikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{optics}
+
+% ---------------------------------------------------
+% Couleur
+% ---------------------------------------------------
+\definecolor{chapter}{HTML}{CC3311}
+\definecolor{attention}{HTML}{CC3311}
+\definecolor{objectif}{HTML}{0077BB}
+\definecolor{prepa}{HTML}{BBBBBB}
+\definecolor{methode}{HTML}{009988}
+\definecolor{rappel}{HTML}{BBBBBB}
+\definecolor{definition}{HTML}{009988}
+\definecolor{application}{HTML}{0077BB}
+
+\definecolor{equation}{HTML}{009988}
+% Space
+\newcommand{\beforespace}{\vspace{0pt}}
+\newcommand{\afterspace}{\vspace{0pt}}
+\newcommand{\imp}[1]{{\bfseries \color{methode} #1}}
+
+% --------------------------------------------
+% tccolorbox
+% --------------------------------------------
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
+\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=8pt}
+
+\def\author{}
+\def\group{}
+\RequirePackage{fancyhdr}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}
+{\nouppercase{\bfseries\leftmark}}}
+\rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\itshape\group}
+\pagestyle{fancyplain}
+
+% -------------------------------------------------------
+% Chapter, Section, ...
+% -------------------------------------------------------
+% Chapter
+\newcommand{\logo}{\faMicroscope}
+\renewcommand{\thechapter}{\Roman{chapter}}
+\titleformat{\chapter}[block] 
+    {\huge \selectfont \bfseries \color{chapter}}
+    {\logo \ TP~\thechapter :}
+    {12pt}
+    {}
+    [\vspace{12pt}]
+\titlespacing{\chapter}{0pt}{3pt plus 2pt minus 2pt}{5pt plus 1.5pt minus 0.25pt}
+
+% Section
+\renewcommand{\thesection}{\arabic{section}}
+\titleformat{\section}[block] 
+{\Large \selectfont \bfseries}
+{\thesection. }
+{10pt}
+{}
+\titlespacing{\section}{0pt}{3pt plus 2pt minus 2pt}{3pt plus 1pt minus 1pt}
+
+% Subsection
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\titleformat{\subsection}[hang] 
+{\Large \selectfont \bfseries}
+{\thesection.\thesubsection.}
+{10pt}
+{}
+\titlespacing{\subsection}{0pt}{3pt plus 2pt minus 2pt}{3pt plus 1.5pt minus 0.25pt}
+
+% -----------------------------------
+% Environnements
+% -----------------------------------
+
+\newenvironment{attention}
+{
+\begin{tcolorbox}[colback=attention!20, 
+       colframe=white,
+       right=3pt, top=5pt, bottom=5pt, 
+       colbacktitle=white, coltitle=attention,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=0mm, yshift=0mm},
+       boxed title style = {colframe=white},
+       title=\faExclamationTriangle\ Attention, 
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{objectif}
+{
+\begin{tcolorbox}[colback=white, colframe=white,
+       right=3pt, top=0pt, bottom=0pt,
+       before=\beforespace, after=\afterspace, 
+       title=\faMapMarked*\ Objectifs, 
+       coltitle=objectif, fonttitle=\bfseries,
+       attach title to upper={\ --- \ }]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{methode}[1]
+{
+\begin{tcolorbox}[colback=white, colframe=methode,
+       right=3pt, top=5pt, bottom=5pt, 
+       colbacktitle=white, coltitle=methode,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faToolbox\ #1, 
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{prepa}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=prepa!20,
+       colbacktitle=prepa!20,
+       title=\faHome\ À préparer, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ },
+       borderline east= {2pt}{1pt}{prepa},
+       borderline west= {2pt}{1pt}{prepa}
+       ] 
+}
+{
+\end{tcolorbox}
+}
+
+% Rappel
+\newenvironment{rappel}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=rappel!20,
+       colbacktitle=rappel!20,
+       title=\faFileUpload\ Rappel, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ },
+       borderline east= {2pt}{1pt}{rappel},
+       borderline west= {2pt}{1pt}{rappel}
+       ] 
+}
+{
+\end{tcolorbox}
+}
+
+% Coeur
+\newenvironment{coeur}
+{
+\begin{tcolorbox}[colback=white, colframe=methode,
+       right=3pt, bottom=5pt, colbacktitle=white, coltitle=methode,
+       before=\beforespace, after=\afterspace,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faHeart\ À retenir, fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{defn}
+{
+\begin{tcolorbox}[colback=white, colframe=definition,
+       right=3pt, bottom=5pt, top=5pt, colbacktitle=white, coltitle=definition,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faSave\ Définition, fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{notice}[1]
+{
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, top=5pt, colbacktitle=white, coltitle=black,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faBook\ #1, fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{materiel}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=rappel!20,
+       colbacktitle=rappel!20,
+       title=\faWrench\ Matériel, 
+       fonttitle=\bfseries,
+       attach title to upper={},
+       borderline east= {2pt}{1pt}{rappel},
+       borderline west= {2pt}{1pt}{rappel}
+       ] 
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{application}
+{
+\begin{tcolorbox}[  
+       enhanced, frame hidden,
+       interior hidden, 
+       coltitle=application,
+       title=\faEdit\ Application, 
+       fonttitle=\bfseries,
+       borderline west=
+       {2pt}{1pt}{application}
+       ] 
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{hp}
+{
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, 
+	attach boxed title to top left={xshift=2mm, yshift=-4mm},
+       boxed title style = {colframe=white},
+       coltitle=black,
+       title=Hypothèses de travail, toprule=1mm, bottomrule=1mm,
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{consigne}
+{
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, 
+	attach boxed title to top left={xshift=2mm, yshift=-4mm},
+       boxed title style = {colframe=white},
+       coltitle=black,
+        toprule=1mm, bottomrule=1mm,
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newcommand{\condition}{}
+
+\newenvironment{eqn}[2][]
+{
+\ifthenelse{\equal{#1}{}}
+	{\tcbset{lowerbox=ignored}}
+	{
+	\tcbset{lowerbox=visible}
+	\renewcommand{\condition}{#1}
+	}
+
+\begin{tcolorbox}[colback=white, colframe=equation,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, coltitle=equation,
+       attach boxed title to top left={xshift=2mm, yshift=-3mm},
+       boxed title style = {colframe=white},
+       title=\faSquareRoot* \ #2, fonttitle=\bfseries]
+}
+{
+\tcblower
+\textcolor{equation}{\faCheckSquare}\ \condition
+\end{tcolorbox}
+}
+
+\newcommand{\todo}[1]{{\bfseries \color{red} [TODO:#1]}}
