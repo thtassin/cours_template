@@ -3,6 +3,7 @@
 \RequirePackage{graphicx}
 \RequirePackage{fontawesome5}
 \RequirePackage{esvect}
+\RequirePackage{esint}
 \RequirePackage{notation}
 \RequirePackage[skins]{tcolorbox}
 \RequirePackage{ifthen}
@@ -10,6 +11,15 @@
 \RequirePackage{pdfcol}
 \RequirePackage{framed}
 \RequirePackage{multirow}
+
+\RequirePackage{pgfplots}
+\RequirePackage[locale=FR]{siunitx}
+\RequirePackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,angles,quotes}
+\tikzset{>=latex}
+\RequirePackage[european,straightvoltages, RPvoltages, siunitx]{circuitikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{optics}
 
 % ---------------------------------------------------
 % Couleur
@@ -48,10 +58,10 @@
 % Blank
 % -------------------------------------
 \newcommand{\blank}[1]{{\bfseries #1}}
-\renewcommand{\blank}[1]{{\textcolor{orange}{#1}}}
+\renewcommand{\blank}[1]{{\Large \textcolor{attention}{#1}}}
 
 \newcommand{\blankspace}[1]{{\bfseries #1}}
-\renewcommand{\blankspace}[1]{{\textcolor{orange}{#1}}}
+\renewcommand{\blankspace}[1]{{\Large \textcolor{attention}{#1}}}
 
 % -------------------------------------
 % Compteur
@@ -232,7 +242,7 @@
        enhanced, frame hidden,
        interior hidden, 
        coltitle=test,
-       title=Test~\thetest~\faSquare~\faCircle~\faPlay, 
+       title=Test~\thetest, 
        fonttitle=\bfseries,
        borderline west=
        {2pt}{1pt}{test}
@@ -265,4 +275,59 @@
 {
 \end{tcolorbox}
 }
+
+\newenvironment{exemple}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=rappel!20,
+       colbacktitle=rappel!20,
+       title=\faSearchPlus\ Exemple, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ },
+       borderline east= {2pt}{1pt}{rappel},
+       borderline west= {2pt}{1pt}{rappel}
+       ] 
+}
+{
+\end{tcolorbox}
+}
+
+\newcommand{\remplir}{\dots\,\dots}
+
+\newenvironment{hp}
+{
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, 
+	attach boxed title to top left={xshift=2mm, yshift=-4mm},
+       boxed title style = {colframe=white},
+       coltitle=black,
+       title=Hypothèses de travail, toprule=1mm, bottomrule=1mm,
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newcounter{exercice}[section]
+
+\newenvironment{exercice}[1]
+{
+\refstepcounter{exercice}
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       colbacktitle=white,
+       title=\theexercice.~#1, 
+       fonttitle=\bfseries \large,
+       width=\linewidth, left=0mm, right=0mm]
+}
+{
+\end{tcolorbox}
+}
+\newcommand{\helptikz}{
+\draw[style=help lines,gray!50] (-7cm,-7cm) grid[step=0.5cm] (7cm,7cm);}
 

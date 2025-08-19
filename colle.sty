@@ -4,19 +4,21 @@
 \RequirePackage{graphicx}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
+\RequirePackage{siunitx}
 \RequirePackage[french]{babel}
 \RequirePackage[table,svgnames]{xcolor}
+\RequirePackage{ifthen}
 \RequirePackage{notation}
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{hyperref}
 \RequirePackage{comment}
 \RequirePackage{pdfcol}
 \RequirePackage{framed}
+\RequirePackage{fontawesome5}
 \RequirePackage[sectionbib]{bibunits}
 \RequirePackage{natbib}
-\RequirePackage[squaren,Gray,cdot, load=addn]{SIunits}
 \RequirePackage{fleqn}
-\RequirePackage[a4paper,hmargin=2cm,vmargin=1.5cm]{geometry}
+\RequirePackage[a4paper,hmargin=1cm,vmargin=1cm]{geometry}
 \RequirePackage{palatino}
 \RequirePackage{tcolorbox}
 \RequirePackage{natbib}
@@ -24,6 +26,15 @@
 \RequirePackage{enumitem}
 \RequirePackage{booktabs}
 \RequirePackage{multirow}
+\RequirePackage{esvect}
+\RequirePackage{notation}
+\RequirePackage{tikz}
+\RequirePackage{chemist}
+\usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,angles,quotes}
+\tikzset{>=latex}
+\RequirePackage[european,straightvoltages, RPvoltages, siunitx]{circuitikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{optics}
 
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
@@ -84,16 +95,29 @@
 {12pt}
 {}
 
-\newcounter{exercice}
-\newenvironment{exercice}[1]
+\newenvironment{question}
 {
-\refstepcounter{exercice}
 \begin{tcolorbox}[enhanced, frame hidden,
        %interior hidden, 
        coltitle=black,
        colback=white,
        colbacktitle=white,
-       title=\theexercice.~#1, 
+       title=Question de cours, 
+       fonttitle=\bfseries \large,
+       width=\linewidth, left=0mm, right=0mm]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{exercice}[1]
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       colbacktitle=white,
+       title=#1, 
        fonttitle=\bfseries \large,
        width=\linewidth, left=0mm, right=0mm]
 }
@@ -119,4 +143,91 @@
 \renewcommand{\correction}[1]{}
 \tcbset{lowerbox=ignored}
 \fi
+
+\newcommand{\note}{
+\begin{center}
+\begin{tabular}{lccccc}
+	\toprule
+	& \faBatteryEmpty & \faBatteryQuarter & \faBatteryHalf & 
+	\faBatteryThreeQuarters & \faBatteryFull\\
+	\midrule
+	Connaissance et maîtrise du cours & & & & & \\[1em]
+	Amorcer un problème & & & & &  \\[1em]
+	Établir une stratégie de résolution & & & &  \\[1em]
+	Calculs et application numérique & & & &  \\[1em]
+	Qualité de la présentation & & & & &  \\[1em]
+	\bottomrule
+\end{tabular}
+\end{center}
+\begin{minipage}{0.45\linewidth}
+\textbf{Commentaires}
+\vspace{2cm}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+\textbf{Note}
+\vspace{2cm}
+\end{minipage}
+}
+
+\renewcommand{\FrenchLabelItem}{\textbullet}
+
+
+\newenvironment{rema}[3]
+{
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, 
+	attach boxed title to top left={xshift=2mm, yshift=-4mm},
+       boxed title style = {colframe=white},
+       coltitle=black,
+       title=#1 : \hfill #2/#3, toprule=1mm, bottomrule=1mm,
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{probleme}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=white,
+       width=\linewidth, left=0mm, right=0mm]
+       {\faCogs~}
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{data}
+{
+\begin{tcolorbox}[colback=white, colframe=white,right=3pt]
+\textbf{Données : }
+}
+{
+\end{tcolorbox}
+}
+
+\newcommand{\condition}{}
+\newenvironment{doc}[2][]
+{
+\ifthenelse{\equal{#1}{}}
+	{\tcbset{lowerbox=ignored}}
+	{
+	\tcbset{lowerbox=visible}
+	\renewcommand{\condition}{#1}
+	}
+
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, coltitle=black,
+       title=#2, fonttitle=\bfseries]
+}
+{
+\tcblower
+\condition
+\end{tcolorbox}
+}
 

@@ -15,7 +15,6 @@
 \RequirePackage{comment}
 \RequirePackage{pdfcol}
 \RequirePackage{framed}
-\RequirePackage[squaren,Gray,cdot, load=addn]{SIunits}
 \RequirePackage{fleqn}
 \RequirePackage[hmargin=2cm,vmargin=2cm]{geometry}
 \RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
@@ -25,8 +24,16 @@
 \RequirePackage{enumitem}
 \RequirePackage{booktabs}
 \RequirePackage{multirow}
+\RequirePackage[locale=FR]{siunitx}
 \RequirePackage{xcolor}
 \RequirePackage{fancyhdr}
+\RequirePackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,angles,quotes}
+\tikzset{>=latex}
+\RequirePackage[european,straightvoltages, RPvoltages, siunitx]{circuitikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{optics}
+
 
 \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\nouppercase{\bfseries\leftmark}}}
 \rhead[\fancyplain{}{\nouppercase{\rightmark}}]{\fancyplain{}{\bfseries\thepage}}
@@ -73,7 +80,7 @@
 \newcounter{newyear}
 \setcounter{pastyear}{\the\year}
 \setcounter{newyear}{\the\year}
-\addtocounter{pastyear}{-1}
+\addtocounter{pastyear}{0}
 \addtocounter{newyear}{1}
 \def\type{}
 \def\lieu{}
@@ -84,7 +91,7 @@
 	%1 Titre %2 Data %3 Durée
 	\thispagestyle{plain}
 \begin{minipage}[t]{0.3\linewidth}
-	Année \thepastyear--\the\year \\
+	Année \thepastyear--\thenewyear \\
 	\lieu \\
 \end{minipage}
 \hfill
@@ -103,5 +110,32 @@
 
 \hrule height 0.3mm
 \vspace{0.2cm}
+}
+\newcommand{\helptikz}{
+\draw[style=help lines,gray!50] (-2cm,-2cm) grid[step=0.5cm] (2cm,2cm);}
+
+
+\newenvironment{data}
+{
+\begin{tcolorbox}[colback=white, colframe=white,right=3pt]
+\textbf{Données : }
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{note}
+{
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, 
+	attach boxed title to top left={xshift=2mm, yshift=-4mm},
+       boxed title style = {colframe=white},
+       coltitle=black,
+       title=Note, toprule=1mm, bottomrule=1mm,
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
 }
 

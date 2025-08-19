@@ -1,15 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{cours}
-\RequirePackage{titlesec, titletoc}
+\ProvidesPackage{td}
+\RequirePackage[explicit]{titlesec}
+\RequirePackage{titletoc}
 \RequirePackage{graphicx}
+\RequirePackage{fontawesome5}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[french]{babel}
+\RequirePackage{notation}
 \RequirePackage[table,svgnames]{xcolor}
 \RequirePackage{amsmath,amssymb}
-\RequirePackage{esvect}
-\RequirePackage{notation}
-\RequirePackage{pxfonts}
 \RequirePackage[skins]{tcolorbox}
 \RequirePackage{ifthen}
 \RequirePackage{hyperref}
@@ -17,35 +17,32 @@
 \RequirePackage{pdfcol}
 \RequirePackage{framed}
 \RequirePackage{fleqn}
-\RequirePackage{pgfplots}
-\RequirePackage{fontawesome5}
-\RequirePackage{tkz-euclide}
+\RequirePackage[locale=FR]{siunitx}
 \RequirePackage[a4paper,hmargin=0.5cm,vmargin=0.5cm, landscape, twocolumn]{geometry}
 \RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
 		labelfont=bf]{caption}
 \RequirePackage{palatino}
+\RequirePackage{pxfonts}
 \RequirePackage{enumitem}
 \RequirePackage{booktabs}
 \RequirePackage{multirow}
-\RequirePackage[locale=FR]{siunitx}
 \RequirePackage{xcolor}
-\RequirePackage{pgfplots}
 \RequirePackage{tikz}
 \usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,angles,quotes}
 \tikzset{>=latex}
 \RequirePackage[european,straightvoltages, RPvoltages, siunitx]{circuitikz}
 \usetikzlibrary{babel}
 \usetikzlibrary{optics}
+\RequirePackage{tkz-euclide}
 
 % ---------------------------------------------------
 % Couleur
 % ---------------------------------------------------
-\definecolor{chapter}{HTML}{009988}
 
 % Space
 \newcommand{\beforespace}{\vspace{0pt}}
 \newcommand{\afterspace}{\vspace{0pt}}
-\newcommand{\todo}[1]{{\bfseries \color{red} [TODO:#1]}}
+
 % --------------------------------------
 % Options
 % -------------------------------------
@@ -60,8 +57,7 @@
 % Blank
 % -------------------------------------
 \newcommand{\correction}[1]{
-\begin{tcolorbox}[enhanced, breakable, 
-       frame hidden,
+\begin{tcolorbox}[enhanced, breakable, frame hidden,
        coltitle=black,
        colback=black!10,
        colbacktitle=black!10,
@@ -84,7 +80,7 @@
 % --------------------------------------------
 \tcbuselibrary{breakable}
 \tcbuselibrary{skins}
-\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=5pt}
+\tcbset{skin=enhanced, breakable=true, parbox=false, beforeafter skip=9pt}
 
 \def\author{}
 \def\group{}
@@ -99,26 +95,21 @@
 % -------------------------------------------------------
 % Chapter, Section, ...
 % -------------------------------------------------------
-% Chapter
-\renewcommand{\thechapter}{\Roman{chapter}}
-\titleformat{\chapter}[block] 
-    {\huge \selectfont \bfseries \color{chapter}}
-    {\faSearch\ TD~\thechapter :}
-    {12pt}
-    {}
-    [\vspace{12pt}]
-\titlespacing{\chapter}{0pt}{3pt plus 2pt minus 2pt}{5pt plus 1.5pt minus 0.25pt}
 
 % Section
 \renewcommand{\thesection}{\arabic{section}}
-\titleformat{\section}[block] 
-{\LARGE \selectfont \bfseries}
-{\thesection.}
-{\baselineskip}
-{}
-[]
 
-\titlespacing{\section}{0pt}{8pt plus 2pt minus 2pt}{4pt plus 1pt minus 1pt}
+\titleformat{\section}[block] 
+	{}
+    	{}
+    	{}
+    	{}
+    	[]
+
+%[\hrule\vspace{2pt}\hrule\vspace{0\baselineskip}]
+
+%\titlespacing{\section}{0pt}{2pt plus 2pt minus 2pt}{2pt plus 1pt minus 1pt}
+
 
 % subsection
 \renewcommand{\thesubsection}{\arabic{subsection}}
@@ -140,65 +131,22 @@
 % -----------------------------
 % tolcolorbox
 % -----------------------------
-\newcommand{\reponse}{}
 
-\newcounter{exercice}
+\newcounter{exercice}[section]
 
-\newenvironment{exercice}[1]
+\newenvironment{exercice}[2]
 {
-\refstepcounter{exercice}
 \begin{tcolorbox}[enhanced, frame hidden,
        %interior hidden, 
        coltitle=black,
        colback=white,
+       colbacktitle=white,
+       title=#1 (#2\,pt), 
+       fonttitle=\bfseries,
        width=\linewidth, left=0mm, right=0mm]
-       {\Large{\textbf{\theexercice}}}.
 }
 {
 \end{tcolorbox}
 }
-
-\newenvironment{probleme}
-{
-\refstepcounter{exercice}
-\begin{tcolorbox}[enhanced, frame hidden,
-       %interior hidden, 
-       coltitle=black,
-       colback=white,
-       width=\linewidth, left=0mm, right=0mm]
-       {\faCogs~\Large{\textbf{\theexercice}}}
-}
-{
-\end{tcolorbox}
-}
-
-\newenvironment{data}
-{
-\begin{tcolorbox}[colback=white, colframe=white,right=3pt]
-\textbf{Données : }
-}
-{
-\end{tcolorbox}
-}
-
-\newcommand{\condition}{}
-\newenvironment{doc}[2][]
-{
-\ifthenelse{\equal{#1}{}}
-	{\tcbset{lowerbox=ignored}}
-	{
-	\tcbset{lowerbox=visible}
-	\renewcommand{\condition}{#1}
-	}
-
-\begin{tcolorbox}[colback=white, colframe=black,
-       right=3pt, bottom=5pt, 
-       colbacktitle=white, coltitle=black,
-       title=#2, fonttitle=\bfseries]
-}
-{
-\tcblower
-\condition
-\end{tcolorbox}
-}
-
+\newcommand{\helptikz}{
+\draw[style=help lines,gray!50] (-7cm,-7cm) grid[step=0.5cm] (7cm,7cm);}

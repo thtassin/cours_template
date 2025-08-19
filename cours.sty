@@ -2,30 +2,40 @@
 \ProvidesPackage{cours}
 \RequirePackage{titlesec, titletoc}
 \RequirePackage{graphicx}
-\RequirePackage{fontawesome5}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
-\RequirePackage{notation}
 \RequirePackage[french]{babel}
 \RequirePackage[table,svgnames]{xcolor}
 \RequirePackage{amsmath,amssymb}
+\RequirePackage{esvect}
+\RequirePackage{notation}
+\RequirePackage{pxfonts}
 \RequirePackage[skins]{tcolorbox}
 \RequirePackage{ifthen}
 \RequirePackage{hyperref}
 \RequirePackage{comment}
 \RequirePackage{pdfcol}
 \RequirePackage{framed}
-\RequirePackage[squaren,Gray,cdot, load=addn]{SIunits}
 \RequirePackage{fleqn}
+\RequirePackage{pgfplots}
+\RequirePackage{fontawesome5}
+\RequirePackage{tkz-euclide}
 \RequirePackage[a4paper,hmargin=0.5cm,vmargin=0.5cm, landscape, twocolumn]{geometry}
 \RequirePackage[margin=12pt, labelsep=endash, font=footnotesize, 
 		labelfont=bf]{caption}
 \RequirePackage{palatino}
-\RequirePackage{pxfonts}
 \RequirePackage{enumitem}
 \RequirePackage{booktabs}
 \RequirePackage{multirow}
+\RequirePackage[locale=FR]{siunitx}
 \RequirePackage{xcolor}
+\RequirePackage{pgfplots}
+\RequirePackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,angles,quotes}
+\tikzset{>=latex}
+\RequirePackage[european,straightvoltages, RPvoltages, siunitx]{circuitikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{optics}
 
 % ---------------------------------------------------
 % Couleur
@@ -121,7 +131,7 @@
 {\thesection.}
 {8pt}
 {}
-\titlespacing{\section}{0pt}{3pt plus 2pt minus 2pt}{3pt plus 1pt minus 1pt}
+\titlespacing{\section}{0pt}{12pt plus 2pt minus 2pt}{12pt plus 1pt minus 1pt}
 
 % Subsection
 \renewcommand{\thesubsection}{\arabic{subsection}}
@@ -130,7 +140,7 @@
 {\thesection.\thesubsection.}
 {8pt}
 {}
-\titlespacing{\subsection}{0pt}{3pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
+\titlespacing{\subsection}{0pt}{8pt plus 2pt minus 1pt}{8pt plus 1pt minus 1pt}
 
 % Subsubsection
 \setcounter{secnumdepth}{5}
@@ -142,6 +152,7 @@
 {}
 \titlespacing{\subsubsection}{0pt}{2pt plus 2pt minus 2pt}{2pt plus 1.5pt minus 0.25pt}
 
+\newcommand{\remplir}{\dots\,\dots}
 % -----------------------------------
 % Environnements
 % -----------------------------------
@@ -154,6 +165,24 @@
        colback=rappel!20,
        colbacktitle=rappel!20,
        title=\faFileUpload\ Rappel, 
+       fonttitle=\bfseries,
+       attach title to upper={\ --- \ },
+       borderline east= {2pt}{1pt}{rappel},
+       borderline west= {2pt}{1pt}{rappel}
+       ] 
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{exemple}
+{
+\begin{tcolorbox}[enhanced, frame hidden,
+       %interior hidden, 
+       coltitle=black,
+       colback=rappel!20,
+       colbacktitle=rappel!20,
+       title=\faSearchPlus\ Exemple, 
        fonttitle=\bfseries,
        attach title to upper={\ --- \ },
        borderline east= {2pt}{1pt}{rappel},
@@ -300,22 +329,6 @@
 \end{tcolorbox}
 }
 
-\newenvironment{test}
-{
-\refstepcounter{test}
-\begin{tcolorbox}[  
-       enhanced, frame hidden,
-       interior hidden, 
-       coltitle=test,
-       title=Test~\thetest~\faSquare~\faCircle~\faPlay, 
-       fonttitle=\bfseries,
-       borderline west=
-       {2pt}{1pt}{test}
-       ] 
-}
-{
-\end{tcolorbox}
-}
 
 \newenvironment{experience}
 {
@@ -335,6 +348,21 @@
        right=3pt, bottom=5pt, 
        colbacktitle=methode, coltitle=white,
        title=\faPython\ Activité numérique, toprule=1mm, bottomrule=1mm,
+       fonttitle=\bfseries]
+}
+{
+\end{tcolorbox}
+}
+
+\newenvironment{hp}
+{
+\begin{tcolorbox}[colback=white, colframe=black,
+       right=3pt, bottom=5pt, 
+       colbacktitle=white, 
+	attach boxed title to top left={xshift=2mm, yshift=-4mm},
+       boxed title style = {colframe=white},
+       coltitle=black,
+       title=Hypothèses de travail, toprule=1mm, bottomrule=1mm,
        fonttitle=\bfseries]
 }
 {
@@ -385,3 +413,5 @@
 \fancyfoot{}
 }
 
+\newcommand{\helptikz}{
+\draw[style=help lines,gray!50] (-2cm,-2cm) grid[step=0.5cm] (2cm,2cm);}
